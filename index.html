@@ -1,0 +1,69 @@
+<DOCTYPE html>
+
+<html>
+
+	<!-- JavaScript files go here -->
+	<head>
+
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+
+		<!-- load all JavaScript objects -->
+		<script src="js/tabs.js"></script>
+
+		<!-- render all components -->
+		<script>
+
+			// document has loaded
+			window.onload = function() {
+
+				var properties = [ "GDP", "Population", "Gold Medals" ];
+
+				var tabs = new Tabs("tabs", function(evtObject) {  
+					// code that handles view selection...
+				});
+
+				/*
+				// Add an element to the DOM dynamically
+
+				var ul = document.createElement("ul");
+				ul.setAttribute("id", "selection-ul");
+				var li;
+				for(i = 0; i < properties.length; i++) {		
+					li = document.createElement("li");
+					li.innerHTML = properties[i];
+					ul.appendChild(li);
+				}
+
+				document.getElementById("selection").appendChild(ul);
+				*/
+
+			};
+
+		</script>
+
+	</head>
+
+	<!-- Document layout -->
+	<body>
+
+		<h1>IS3</h1>
+
+		<div id="chart_div"></div>
+
+		<ul id="tabs">
+
+			<li>Map view</li>
+			<li>Scatterplot view</li>
+			<li>Comparison view</li>
+
+		</ul>
+
+		<div id="selection">
+
+
+		</div>
+
+	</body>
+
+</html>
