@@ -1,6 +1,5 @@
-<DOCTYPE html>
-
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 	<!-- JavaScript files go here -->
 	<head>
@@ -14,6 +13,9 @@
 		<script type='text/javascript' src='https://www.google.com/jsapi'></script> <!-- Google charts API -->
 		<script src="js/tabs.js"></script> <!-- Tabs component -->
 		<script src="js/map.js"></script> <!-- Map view -->
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+  		<script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
+  		<script type="text/javascript" src="js/countries.js"></script>
 
 		<!-- render all components -->
 		<script>
@@ -65,25 +67,39 @@
 
 	<!-- Document layout -->
 	<body>
-
-		<div id="map" style="width: 900px; height: 500px;"></div>
+	<div id="wrapper">
+		<div id="map"></div>
 		<div id="scatterplot"></div>
-		<div id="comparison"></div>
+		<div id="comparison"></div>		
 
 		<ul id="tabs">
 
-			<li id="maptab">Map view</li>
-			<li id="scatterplottab">Scatterplot view</li>
-			<li id="comparisontab">Comparison view</li>
+			<li id="maptab">Map View</li>
+			<li id="scatterplottab">Scatterplot View</li>
+			<li id="comparisontab">Comparison View</li>
 
 		</ul>
-		
-
-		<div id="selection">
 
 
-		</div>
 
+	
+    <div id="searchfield">
+    <form><input type="text" name="country" class="biginput" id="autocomplete" value="Enter Country"></form>
+  </div><!-- End Searchfield -->
+   
+    <div id="outputbox">
+    <p id="outputcontent">Results display here.</p>
+    </div><!-- End OutputBox-->
+                     
+        <div id="resultsOutput">
+        <p>Result values will appear here as text</p>
+        </div><!-- End ResultsOutput-->
+        
+        
+        <div id="selectionBar">
+        <p>Values to compare will be selected here</p>
+        </div><!-- End SelectionBar -->
+        
+	</div><!-- End Wrapper-->
 	</body>
-
 </html>

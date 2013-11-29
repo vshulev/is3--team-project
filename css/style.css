@@ -1,20 +1,82 @@
-
-/*
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-*/
-
-* {
-	margin: 0;
-	padding: 0;
+html{
+    background:url('http://www.pulsarmedia.ro/data/media/3/Alien%20Ink%202560X1600%20Abstract%20Background.jpg') no-repeat center center;margin:0;
+	padding:0;
+    min-height:100%;
+    background-size:cover;
 }
+
 
 body {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: #6E6E6E;
 }
+
+#wrapper{
+	position:relative;
+	background-position: 0px auto;
+	background-color:#CCC;
+	width:1040px;
+	margin: 20px auto;
+	height:600px;
+	}
+	
+#tabs{
+	position:absolute;
+	left:30px;
+	bottom:70px;
+	}
+	
+#searchfield{
+	position:absolute;
+	left:300px;
+	bottom: 60px;
+	padding:10px;
+	}
+
+#map {
+	position:absolute;
+	top:30px;
+	width: 700px; 
+	height: 450px;
+	left:30px;
+	
+	}
+#resultsOutput{
+	position:absolute;
+	border:thick;
+	border-color:#000;
+	background-color:#333;
+	top:30px;
+	right:20px;
+	width:250px;
+	height:300px;
+	padding:10px;
+	}
+	
+#selectionBar{
+	position:absolute;
+	border:thick;
+	border-color:#000;
+	background-color:#333;
+	right:20px;
+	bottom:120px;
+	width:250px;
+	height:100px;
+	padding:10px;
+	}
+
+#outputbox{
+	position:absolute;
+	border:thick;
+	border-color:#000;
+	background-color:#333;
+	height:50px;
+	width: 250px;
+	bottom:20px;
+	right:310px;
+	padding:10px;
+	}
 
 input, textarea {
 	border: 1px solid #FFFFFF;
