@@ -9,11 +9,4 @@ function Tabs(elementID, callback) {
 		children[i].onclick = callback;
 	}
 
-	/*
-	this.names = new Array();
-	this.tabsContainer = $(elementID);
-
-	this.tabsContainer.children().click(callback);
-	*/
-
 }
