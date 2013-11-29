@@ -34,7 +34,7 @@
 					['Great Britain', 10],
 					['Romania',70]];
 
-			var map = new Map("map", mapheadings, mapdata);
+			var map = new Map("map", mapdata);
 
 			// document has loaded
 			window.onload = function() {
