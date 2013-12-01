@@ -18,7 +18,7 @@
    		<script src="js/jquery-1.9.1.min.js"></script>
   		<script src="js/jquery.autocomplete.min.js"></script>
   		<script src="js/countries.js"></script>
-		<script src="js/obj.js"></script>
+		<!-- <script src="js/obj.js"></script> -->
 		<script src="js/sampleD.js"></script>
 		<script src="js/extraFunctions.js"></script>
 
@@ -106,24 +106,41 @@
         <div id=selectionBar>
         <div id="bar1">
 	<form> 
-	<select id="head" onchange="compare()">
+	<select id="sel">
 		<option>GDP</option>
 		<option>Population</option>
 		<option>Growth</option>
 		<option>Gold Medals</option>
 		<option>Silver Medals</option>
 		<option>Bronze Medals</option>
-	</select></form></div>
-        <div id="bar2">
+	</select>
+    <input type="text" id="selVal" value="">
+    </form>    
+  <!--  </div>  -->
+    <br><br/>
+    <script>
+    $("#sel").change(function() {
+    var rate = $("#sel option:selected").text();
+    $('#selVal').val(rate);});  
+    </script>
+   <!--  <div id="bar2"> -->
 	<form>
-	<select id="head" onchange="compare()">
+	<select id="sel2">
 		<option>GDP</option>
 		<option>Population</option>
 		<option>Growth</option>
 		<option>Gold Medals</option>
 		<option>Silver Medals</option>
 		<option>Bronze Medals</option>
-	</select></form></div><br>
+	</select>
+    <input type="text" id="selVal2" value="">
+    </form>
+    </div><br>
+    <script>
+    $("#sel2").change(function() {
+    var rate = $("#sel2 option:selected").text();
+    $('#selVal2').val(rate);});  
+    </script>
  <!--	Full Version of Header
 
  	 <div id="bar1">
@@ -155,7 +172,7 @@
 	<form> 
 	<select id="sel2">
 //	</select></form></div><br> -->
-<p>You are comparing: <input type="text" id="compare" size="20"></p>
+
 
         </div><!-- End SelectionBar -->
         
