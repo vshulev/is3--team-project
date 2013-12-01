@@ -1,0 +1,5 @@
+function compare(){
+var cList=document.getElementById("headers");
+document.getElemementById("compare").value=cList.options[cList.selectedIndex].text;
+
+}

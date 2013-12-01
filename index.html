@@ -8,15 +8,19 @@
 
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
-
 		<!-- load all JavaScript objects -->
-		<script type='text/javascript' src='https://www.google.com/jsapi'></script> <!-- Google charts API -->
+
+		<script type='text/javascript' src='https://www.google.com/jsapi'></script> 
+		<!-- Google charts API -->
 		<script src="js/tabs.js"></script> <!-- Tabs component -->
 		<script src="js/map.js"></script> <!-- Map view -->
 		<script src="js/scatter.js"></script><!-- Scatter view -->
-        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-  		<script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
-  		<script type="text/javascript" src="js/countries.js"></script>
+   		<script src="js/jquery-1.9.1.min.js"></script>
+  		<script src="js/jquery.autocomplete.min.js"></script>
+  		<script src="js/countries.js"></script>
+		<script src="js/obj.js"></script>
+		<script src="js/sampleD.js"></script>
+		<script src="js/extraFunctions.js"></script>
 
 		<!-- render all components -->
 		<script>
@@ -24,7 +28,8 @@
 			/*
 			 * Mock data
 			 */
-			 
+
+
 			var properties = [ "GDP", "Population", "Gold Medals" ];
 			var mapheadings = ['Country', 'Awesomeness'];
 			var mapdata = 	[['Germany', 200],
@@ -91,16 +96,72 @@
     </div><!-- End Searchfield -->   
     
     <div id="outputbox">
-    <p id="outputcontent">Results display here.</p>
     </div><!-- End OutputBox-->
                      
         <div id="resultsOutput">
         <p>Result values will appear here as text</p>
+	<script>
+		for(var i = 0; i < sampleDataSet.length; i++){
+			document.write(sampleDataSet[i].Country+"\n");
+}
+document.write(Object.keys(sampleDataSet));
+</script>
         </div><!-- End ResultsOutput-->
         
-        
-        <div id="selectionBar">
-        <p>Values to compare will be selected here</p>
+        <div id=selectionBar>
+        <div id="bar1">
+	<form> 
+	<select id="head" onchange="compare()">
+		<option>GDP</option>
+		<option>Population</option>
+		<option>Growth</option>
+		<option>Gold Medals</option>
+		<option>Silver Medals</option>
+		<option>Bronze Medals</option>
+	</select></form></div>
+        <div id="bar2">
+	<form>
+	<select id="head" onchange="compare()">
+		<option>GDP</option>
+		<option>Population</option>
+		<option>Growth</option>
+		<option>Gold Medals</option>
+		<option>Silver Medals</option>
+		<option>Bronze Medals</option>
+	</select></form></div><br>
+ <!--	Full Version of Header
+
+ 	 <div id="bar1">
+	<script>
+	var test = Object.keys(sampleDataSet[0]);
+	$(function() {
+	  var options = '';
+	  for (var i = 0; i < test.length; i++) {	
+	      options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+	  }
+	  $('#sel').html(options);
+	});
+	</script>
+	<form> 
+	<select id="sel">
+	</select></form></div>
+        <div id="bar2">
+	<script>
+	//var test = Object.keys(sampleDataSet[0]);
+	var test = headers;
+	$(function() {
+ 	 var options = '';
+	  for (var i = 0; i < test.length; i++) {
+ 	     options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+ 	 }
+  	$('#sel2').html(options);
+	});
+	</script>
+	<form> 
+	<select id="sel2">
+//	</select></form></div><br> -->
+<p>You are comparing: <input type="text" id="compare" size="20"></p>
+
         </div><!-- End SelectionBar -->
         
 	</div><!-- End Wrapper-->

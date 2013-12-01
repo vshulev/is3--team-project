@@ -12,7 +12,7 @@ $(function(){
 				   ];
 
 $('#autocomplete').autocomplete({
-    lookup: countries,
+    lookup: test,
     onSelect: function (suggestion) {
       var thehtml = '<strong>Country Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
       $('#outputcontent').html(thehtml);
