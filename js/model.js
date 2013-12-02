@@ -15,11 +15,13 @@ function Model(data) {
 	};
 	
 	this.addToSelected = function(cname) {
-	
+		var res = lookup(cname);
+		if(res != -1)
+			selected.push(data[res]);
 	};
 	
 	this.removeFromSelected = function(cname) {
-	
+		
 	};
 	
 	this.getMapData = function(prop1, prop2) {
