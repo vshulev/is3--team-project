@@ -12,3 +12,10 @@ p
 font-family:"Times New Roman";
 font-size:20px;
 }
+
+#wrapper{
+	background-position: 0px auto;
+	background-color:#CCC;
+	width:1080px;
+	
+	}
