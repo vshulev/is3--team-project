@@ -68,7 +68,6 @@
 			};
 
 		</script>
-
 	</head>
 
 	<!-- Document layout -->
@@ -90,7 +89,6 @@
 
 	
     <div id="searchfield">
-	
 	<form><input type="text" name="country" class="biginput" id="autocomplete" value="Enter Country" onblur="if(this.value=='')this.value='Enter Country';" onfocus="if(this.value=='Enter Country')this.value='';"/></form>
 <script>
 $("#autocomplete").keypress(function(e) {
@@ -101,20 +99,27 @@ $("#autocomplete").keypress(function(e) {
 </script>	
     </div><!-- End Searchfield -->   
     
-    <div id="outputbox" class="overflowAuto">
-<script type="text/javascript">
-function changeThis(){
-	var formInput = document.getElementById('autocomplete').value;
-	document.getElementById('newText').innerHTML = formInput;
-}
-</script>
-<p><span id='newText'></span> </p> 
 
+
+    <div id="outputbox" class="overflowAuto">
+<p id='newText'></p> 
     </div><!-- End OutputBox-->
-                     
-        <div id="resultsOutput">
+                
+
+
+    
+        <div id="resultsOutput"><!-- This box will be repeated for every country selected -->
+<form>
+<input type="text" id="selVal" value="">
+</form>
+<form>
+    <input type="text" id="selVal2" value="">
+    </form>
         </div><!-- End ResultsOutput-->
         
+
+
+
         <div id=selectionBar>
         <div id="bar1">
 	<form> 
@@ -126,14 +131,11 @@ function changeThis(){
 		<option>Silver Medals</option>
 		<option>Bronze Medals</option>
 	</select>
-    <input type="text" id="selVal" value="">
     </form>    
   <!--  </div>  -->
-    <br><br/>
+<p>versus</p>
     <script>
-    $("#sel").change(function() {
-    var rate1 = $("#sel option:selected").text();
-    $('#selVal').val(rate1);});  
+	rate1();
     </script>
    <!--  <div id="bar2"> -->
 	<form>
@@ -145,16 +147,10 @@ function changeThis(){
 		<option>Silver Medals</option>
 		<option>Bronze Medals</option>
 	</select>
-    <input type="text" id="selVal2" value="">
-    </form>
+</form>
     </div><br>
     <script>
-    $("#sel2").change(function() {
-    var rate2 = $("#sel2 option:selected").text();
-    $('#selVal2').val(rate2);
-	fun(rate2);
-
-});  
+	rate2();
     </script>
  <!--	Full Version of Header
 
@@ -187,10 +183,10 @@ function changeThis(){
 	<form> 
 	<select id="sel2">
 //	</select></form></div><br> -->
-
-
         </div><!-- End SelectionBar -->
-        
+   
+
+     
 	</div><!-- End Wrapper-->
 	</body>
 </html>

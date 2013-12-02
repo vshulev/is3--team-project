@@ -1,16 +1,5 @@
 $(function(){
-<!--  var countries = [
-				   "Bulgaria",
-				   "Belgium",
-				   "Belarus",
-				   "Italy",
-				   "Spain",
-				   "France", 
-				   "UK", 
-				   "USA",
-				   "Australia"
-				   ];
--->
+
 
 var countries = [];
 	
@@ -18,13 +7,18 @@ var countries = [];
 			countries.push(fullDataSet[i].Country);
 }
 
+var selected = [];
+
 $('#autocomplete').autocomplete({
     lookup: countries,
     onSelect: function (suggestion) {
       var thehtml = '<strong>Country Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
-      $('#outputcontent').html(thehtml);
+      selected.push(suggestion.value);
+      $('#outputcontent').slice(3).html(thehtml);
     }
   });
   
 
 });
+
+
