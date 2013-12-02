@@ -13,8 +13,14 @@ $('#autocomplete').autocomplete({
     lookup: countries,
     onSelect: function (suggestion) {
       var thehtml = '<strong>Country Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
-      selected.push(suggestion.value);
-      $('#outputcontent').html(thehtml);
+      var country = suggestion.value;
+      selected.push(country);
+      var p='';
+      for(var i = 0; i < selected.length; i++){
+        p = p + selected[i] + ', ';
+      }
+      $('#outputbox').html(p);
+      //$('#outputcontent').html(thehtml);
     }
   });
   
