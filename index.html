@@ -27,7 +27,7 @@
   		<script src="js/countries.js"></script>
 		<script src="js/sampleD.js"></script>
 		<script src="js/model.js"></script>
-		<script src="js/extraFunctions.js"></script>
+        <script src="js/results.js"></script>
 
 		<!-- render all components -->
 		<script>
@@ -106,7 +106,11 @@
 				<div id="countryInfo">
 				</div>
 
-				<div id="resultsOutput"><!-- This box will be repeated for every country selected -->
+				<div id="resultsOutput">
+                <div id="resultsOutputText"></div><!-- Country Name, based on 'selectedList' ID-->
+                <div id="resultsOutput1"></div>
+                <div id="resultsOutput2"></div>
+                <!-- This box will be repeated for every country selected -->
 				</div><!-- End ResultsOutput-->
 		
 				<div id="selectionBar">
@@ -121,11 +125,11 @@
 		  for (var i = 0; i < test.length; i++) {	
 		      options += '<option value="' + test[i] + '">' + test[i]+ '</option>';
 		  }
-		  $('#sel').html(options);
+		  $('#sel1').html(options);
 		});
 		</script>
 		<form> 
-		<select id="sel">
+		<select id="sel1"><script>rate1();</script>
 		</select></form>
 		<script>
 		$(function() {
@@ -137,7 +141,7 @@
 		});
 		</script>
 		<form> 
-		<select id="sel2">
+		<select id="sel2"> <script>rate2();</script>  
 		</select></form></div><br>
 				</div><!-- End SelectionBar -->
 			</div>
