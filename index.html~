@@ -23,29 +23,26 @@
   		<script src="js/jquery.autocomplete.min.js"></script>
   		<script src="js/countries.js"></script>
 		<script src="js/sampleD.js"></script>
+		<script src="js/model.js"></script>
 		<script src="js/extraFunctions.js"></script>
 
 		<!-- render all components -->
 		<script>
-			/*************
-			 *           *
-			 * Mock data *
-			 *           *
-			 *************/
-			 
-			var properties = [ "GDP", "Population", "Gold Medals" ];
-			var mapheadings = ['Country', 'Awesomeness'];
-			var mapdata = 	[['Germany', 200],
-					['United States', 300],
-					['Brazil', 400],
-					['Canada', 500],
-					['France', 600],
-					['RU', 700],
-					['Bulgaria', 500],
-					['Great Britain', 10],
-					['Romania',70]];
 
+			// mock data			 
+			var properties = [ "GDP", "Population", "Gold Medals" ];
+			var mapheadings = ['Country', 'GDP Per Capita'];
+
+			// model
+			var model = new Model(fullDataSet);
+
+			// map component
+			var mapdata = model.getMapData("GDP2011", "pop2010");
 			var map = new Map("map", mapheadings, mapdata);
+
+			// scatterplot component
+
+			// bar chart component
 
 			// document has loaded
 			window.onload = function() {
@@ -76,6 +73,10 @@
 			<!--<div id="comparison" class="fourteen columns"></div>-->
  
 			<div class="four columns">
+				<div id="countryInfo">
+					Click on a country to display information
+				</div>
+
 				<div id="resultsOutput"><!-- This box will be repeated for every country selected -->
 					<form>
 						<input type="text" id="selVal" value="">
@@ -151,6 +152,8 @@
 				</div><!-- End SelectionBar -->
 			</div>
 
+			<div class="sixteen columns">
+
 			<ul id="tabs" class="four columns">
 
 				<li id="maptab">Map View</li>
@@ -172,8 +175,7 @@
  				</select>
    			</div><!-- End OutputBox-->
 
-			<!-- empty space -->
-			<div class="four columns"></div>
+			</div>
 
 		</div><!-- End Wrapper-->
 	</body>

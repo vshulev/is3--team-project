@@ -26,9 +26,9 @@ function Model(data) {
 	
 	this.getMapData = function(prop1, prop2) {
 		var out = new Array();
-		for(i = 0; i < selected.length; i++) {
-			if(selected[i][prop1] == null || selected[i][prop2] == null) continue;
-			out.push([ selected[i]["Country"], selected[i][prop1] / selected[i][prop2] ]);
+		for(i = 0; i < this.selected.length; i++) {
+			if(this.selected[i][prop1] == null || this.selected[i][prop2] == null) continue;
+			out.push([ this.selected[i]["Country"], this.selected[i][prop1] / this.selected[i][prop2] ]);
 		}
 		return out;
 	};

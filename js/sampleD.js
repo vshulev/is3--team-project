@@ -42983,7 +42983,7 @@ var fullDataSet = [
     "Ratio_of_young_literate_females_to_males":12.6
   },
   {
-    "Country":"UK",
+    "Country":"United Kingdom",
     "ISO":"GBR",
     "GDP2011":2431590000000,
     "pop2010":62232000,
