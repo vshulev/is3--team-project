@@ -104,16 +104,9 @@
  
 			<div class="four columns">
 				<div id="countryInfo">
-					Click on a country to display information
 				</div>
 
 				<div id="resultsOutput"><!-- This box will be repeated for every country selected -->
-					<form>
-						<input type="text" id="selVal" value="">
-					</form>
-					<form>
-	    					<input type="text" id="selVal2" value="">
-	    				</form>
 				</div><!-- End ResultsOutput-->
 		
 				<div id="selectionBar">
@@ -148,13 +141,11 @@
 
 			<div class="sixteen columns">
 
-			<ul id="tabs" class="four columns">
-
-				<li id="maptab">Map View</li>
-				<li id="scatterplottab">Scatterplot View</li>
-				<li id="comparisontab">Comparison View</li>
-
-			</ul>
+			<div id="tabs" class="four columns">
+					<input type="button" id="maptab" value="Map" />
+					<input type="button" id="scatterplottab" value="ScatterPlot" />
+					<input type="button" id="comparisontab" value="Comparison" />
+			</div>
 
 			<div id="searchfield" class="four columns">
 
