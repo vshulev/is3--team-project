@@ -9,14 +9,14 @@ var countries = [];
 
 var selected = [];
 
-var s = document.getElementById('sel');
+var sList = document.getElementById('selectedList');
 
 $('#autocomplete').autocomplete({
     lookup: countries,
     onSelect: function (suggestion) {
-      var thehtml = '<strong>Country Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
+      //var thehtml = '<strong>Country Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
       var country = suggestion.value;
-
+      
       if(selected.indexOf(country) == -1){
         selected.push(country);
         var p='';
@@ -24,7 +24,7 @@ $('#autocomplete').autocomplete({
         var opt = document.createElement('option');
         opt.innerHTML = country;
         opt.textContent = country;
-        s.appendChild(opt);
+        sList.appendChild(opt);
         
     }
   }
@@ -33,4 +33,18 @@ $('#autocomplete').autocomplete({
 
 });
 
+
+function removeOption()
+{
+  alert("You selected: " + x.options[x.selectedIndex].text);
+  var x=document.getElementById("selectedList");
+  x.remove(x.selectedIndex);
+  //alert("You selected: " + x.options[x.selectedIndex].text);
+
+  if(selected.indexOf(x.text) != -1) { // Make sure the value exists
+        selected.splice(selected.indexOf(x), 1);
+  
+
+    }   
+}
 
