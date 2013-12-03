@@ -5,25 +5,32 @@
 	<head>
 
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<!--<link rel="stylesheet" type="text/css" href="css/style.css" />-->
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/skeleton/base.css">
+		<link rel="stylesheet" href="css/skeleton/skeleton.css">
+		<link rel="stylesheet" href="css/skeleton/layout.css">
 
 		<!-- load all JavaScript objects -->
-		<script type='text/javascript' src='https://www.google.com/jsapi'></script> <!-- Google charts API -->
+		<script src='https://www.google.com/jsapi'></script> <!-- Google charts API -->
+		<script src="js/jquery-1.9.1.min.js"></script> <!-- jQuery -->
 		<script src="js/tabs.js"></script> <!-- Tabs component -->
 		<script src="js/map.js"></script> <!-- Map view -->
 		<script src="js/scatter.js"></script><!-- Scatter view -->
-        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-  		<script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
-  		<script type="text/javascript" src="js/countries.js"></script>
+  		<script src="js/jquery.autocomplete.min.js"></script>
+  		<script src="js/countries.js"></script>
 
 		<!-- render all components -->
 		<script>
 		
-			/*
-			 * Mock data
-			 */
+			/*************
+			 *           *
+			 * Mock data *
+			 *           *
+			 *************/
 			 
 			var properties = [ "GDP", "Population", "Gold Medals" ];
 			var mapheadings = ['Country', 'Awesomeness'];
@@ -47,19 +54,14 @@
 					console.log(evtObject);
 				});
 
-				// Add an element to the DOM dynamically
-				/*
-				var ul = document.createElement("ul");
-				ul.setAttribute("id", "selection-ul");
-				var li;
-				for(i = 0; i < properties.length; i++) {		
-					li = document.createElement("li");
-					li.innerHTML = properties[i];
-					ul.appendChild(li);
-				}
+				var autocomplete = document.getElementById("autocomplete");
+				autocomplete.onblur = function() {
+					if(this.value=='') this.value='Enter Country';
+				};
+				autocomplete.onfocus = function() {
+					if(this.value=='Enter Country') this.value='';
+				};
 
-				document.getElementById("selection").appendChild(ul);
-				*/
 			};
 
 		</script>
@@ -68,41 +70,43 @@
 
 	<!-- Document layout -->
 	<body>
-	<div id="wrapper">
-		<div id="map"></div>
-		<div id="scatterplot"></div>
-		<div id="comparison"></div>		
+		<div id="wrapper" class="container">
+			<div id="map" class="twelve columns"></div>
+			<!--<div id="scatterplot" class="fourteen columns"></div>-->
+			<!--<div id="comparison" class="fourteen columns"></div>-->
 
-		<ul id="tabs">
+			<!-- Comment out this div for previous layout && move contents of div to bottom of wrapper div -->    
+			<div class="four columns">
 
-			<li id="maptab">Map View</li>
-			<li id="scatterplottab">Scatterplot View</li>
-			<li id="comparisontab">Comparison View</li>
+				<div id="resultsOutput">
+					<p>Result values will appear here as text</p>
+				</div><!-- End ResultsOutput-->
+		
+				<div id="selectionBar">
+					<p>Values to compare will be selected here</p>
+				</div><!-- End SelectionBar -->	 
+			</div>
 
-		</ul>
+			<ul id="tabs" class="eight columns">
 
+				<li id="maptab">Map View</li>
+				<li id="scatterplottab">Scatterplot View</li>
+				<li id="comparisontab">Comparison View</li>
 
+			</ul>
 
+			<div id="searchfield" class="four columns">
 	
-    <div id="searchfield">
+				<form>
+					<input type="text" name="country" class="biginput" id="autocomplete" value="Enter Country" />
+				</form>
 	
-	<form><input type="text" name="country" class="biginput" id="autocomplete" value="Enter Country" onblur="if(this.value=='')this.value='Enter Country';" onfocus="if(this.value=='Enter Country')this.value='';"/></form>
-	
-    </div><!-- End Searchfield -->   
-    
-    <div id="outputbox">
-    <p id="outputcontent">Results display here.</p>
-    </div><!-- End OutputBox-->
-                     
-        <div id="resultsOutput">
-        <p>Result values will appear here as text</p>
-        </div><!-- End ResultsOutput-->
-        
-        
-        <div id="selectionBar">
-        <p>Values to compare will be selected here</p>
-        </div><!-- End SelectionBar -->
-        
-	</div><!-- End Wrapper-->
+			</div><!-- End Searchfield -->   
+	    
+			<div id="outputbox" class="four columns">
+				<p id="outputcontent">Results display here.</p>
+			</div><!-- End OutputBox-->		
+
+		</div><!-- End Wrapper-->
 	</body>
 </html>
