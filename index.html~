@@ -38,20 +38,28 @@
 
 			// map component
 			var mapdata = model.getMapData("GDP2011", "pop2010");
-			var map = new Map("map", mapheadings, mapdata);
+			var map = new Map("map", mapheadings, mapdata, "world");
 
 			// scatterplot component
 
 			// bar chart component
 
 			// document has loaded
-			window.onload = function() {
+			$(function() {
 				
+				// region selector
+				$("#regionSelector input[type='button']").click(function(evt) {
+					// redraw map
+					map.drawRegion(evt.target.id);
+				});
+
+				// tabs - TODO replace with jQueryUI
 				var tabs = new Tabs("tabs", function(evtObject) {  
 					// code that handles view selection...
 					console.log(evtObject);
 				});
 
+				// autocomplete
 				var autocomplete = document.getElementById("autocomplete");
 				autocomplete.onblur = function() {
 					if(this.value=='') this.value='Enter Country';
@@ -60,7 +68,7 @@
 					if(this.value=='Enter Country') this.value='';
 				};
 
-			};
+			});
 
 		</script>
 	</head>
@@ -68,9 +76,21 @@
 	<!-- Document layout -->
 	<body>
 		<div id="wrapper" class="container">
-			<div id="map" class="twelve columns"></div>
-			<!--<div id="scatterplot" class="fourteen columns"></div>-->
-			<!--<div id="comparison" class="fourteen columns"></div>-->
+			
+			<div class="twelve columns">
+				<div id="regionSelector">
+					<input type="button" id="world" value="World" />
+					<input type="button" id="002" value="Africa" />
+					<input type="button" id="142" value="Asia" />
+					<input type="button" id="150" value="Europe" />
+					<input type="button" id="021" value="North America" />
+					<input type="button" id="005" value="South America" />
+					<input type="button" id="009" value="Oceania" />
+				</div>
+				<div id="map"></div>
+			</div>
+			<!--<div id="scatterplot" class="twelve columns"></div>-->
+			<!--<div id="comparison" class="twelve columns"></div>-->
  
 			<div class="four columns">
 				<div id="countryInfo">
