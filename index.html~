@@ -9,7 +9,7 @@
 
 		<!-- CSS -->
 		<!--<link rel="stylesheet" type="text/css" href="css/style.css" />-->
-		<link rel="stylesheet" href="css/skeleton/main.css">
+		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/skeleton/base.css">
 		<link rel="stylesheet" href="css/skeleton/skeleton.css">
 		<link rel="stylesheet" href="css/skeleton/layout.css">
@@ -22,10 +22,11 @@
 		<script src="js/scatter.js"></script><!-- Scatter view -->
   		<script src="js/jquery.autocomplete.min.js"></script>
   		<script src="js/countries.js"></script>
+		<script src="js/sampleD.js"></script>
+		<script src="js/extraFunctions.js"></script>
 
 		<!-- render all components -->
 		<script>
-		
 			/*************
 			 *           *
 			 * Mock data *
@@ -65,7 +66,6 @@
 			};
 
 		</script>
-
 	</head>
 
 	<!-- Document layout -->
@@ -74,20 +74,84 @@
 			<div id="map" class="twelve columns"></div>
 			<!--<div id="scatterplot" class="fourteen columns"></div>-->
 			<!--<div id="comparison" class="fourteen columns"></div>-->
-
-			<!-- Comment out this div for previous layout && move contents of div to bottom of wrapper div -->    
+ 
 			<div class="four columns">
-
-				<div id="resultsOutput">
-					<p>Result values will appear here as text</p>
+				<div id="resultsOutput"><!-- This box will be repeated for every country selected -->
+					<form>
+						<input type="text" id="selVal" value="">
+					</form>
+					<form>
+	    					<input type="text" id="selVal2" value="">
+	    				</form>
 				</div><!-- End ResultsOutput-->
 		
-				<div id="selectionBar">
-					<p>Values to compare will be selected here</p>
-				</div><!-- End SelectionBar -->	 
+				<div id=selectionBar>
+					<div id="bar1">
+						<form> 
+							<select id="sel">
+								<option>GDP</option>
+								<option>Population</option>
+								<option>Growth</option>
+								<option>Gold Medals</option>
+								<option>Silver Medals</option>
+								<option>Bronze Medals</option>
+							</select>
+						</form>    
+	  <!--  </div>  -->
+						<p>versus</p>
+						<script>
+							rate1();
+						</script>
+	   <!--  <div id="bar2"> -->
+						<form>
+							<select id="sel2">
+								<option>GDP</option>
+								<option>Population</option>
+								<option>Growth</option>
+								<option>Gold Medals</option>
+								<option>Silver Medals</option>
+								<option>Bronze Medals</option>
+							</select>
+						</form>
+					</div><br>
+					<script>
+						rate2();
+					</script>
+	 <!--	Full Version of Header
+
+	 	 <div id="bar1">
+		<script>
+		var test = Object.keys(sampleDataSet[0]);
+		$(function() {
+		  var options = '';
+		  for (var i = 0; i < test.length; i++) {	
+		      options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+		  }
+		  $('#sel').html(options);
+		});
+		</script>
+		<form> 
+		<select id="sel">
+		</select></form></div>
+		<div id="bar2">
+		<script>
+		//var test = Object.keys(sampleDataSet[0]);
+		var test = headers;
+		$(function() {
+	 	 var options = '';
+		  for (var i = 0; i < test.length; i++) {
+	 	     options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+	 	 }
+	  	$('#sel2').html(options);
+		});
+		</script>
+		<form> 
+		<select id="sel2">
+	//	</select></form></div><br> -->
+				</div><!-- End SelectionBar -->
 			</div>
 
-			<ul id="tabs" class="eight columns">
+			<ul id="tabs" class="four columns">
 
 				<li id="maptab">Map View</li>
 				<li id="scatterplottab">Scatterplot View</li>
@@ -96,7 +160,7 @@
 			</ul>
 
 			<div id="searchfield" class="four columns">
-	
+
 				<form>
 					<input type="text" name="country" class="biginput" id="autocomplete" value="Enter Country" />
 				</form>
@@ -104,8 +168,12 @@
 			</div><!-- End Searchfield -->   
 	    
 			<div id="outputbox" class="four columns">
-				<p id="outputcontent">Results display here.</p>
-			</div><!-- End OutputBox-->		
+				<select id="sel" size="3">
+ 				</select>
+   			</div><!-- End OutputBox-->
+
+			<!-- empty space -->
+			<div class="four columns"></div>
 
 		</div><!-- End Wrapper-->
 	</body>

@@ -12,11 +12,23 @@ body {
 	color: #6E6E6E;
 }
 
+#bar1{
+	position:absolute;
+top;10px;
+left: 10px;
+}
+
+#bar2{
+		position:absolute;
+top;10px;
+right:10px;
+}
+
 #wrapper{
 	position:relative;
 	background-position: 0px auto;
 	background-color:#CCC;
-	width:1040px;
+	width:1100px;
 	margin: 20px auto;
 	height:600px;
 	}
@@ -32,7 +44,13 @@ body {
 	left:300px;
 	bottom: 60px;
 	padding:10px;
+	display: block;
 	}
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden;}
+.autocomplete-selected { background: #F0F0F0; float:left; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 
 #map {
 	position:absolute;
@@ -49,7 +67,7 @@ body {
 	background-color:#333;
 	top:30px;
 	right:20px;
-	width:250px;
+	width:300px;
 	height:300px;
 	padding:10px;
 	}
@@ -61,7 +79,7 @@ body {
 	background-color:#333;
 	right:20px;
 	bottom:120px;
-	width:250px;
+	width:300px;
 	height:100px;
 	padding:10px;
 	}
@@ -71,10 +89,10 @@ body {
 	border:thick;
 	border-color:#000;
 	background-color:#333;
-	height:50px;
+	height:55px;
 	width: 250px;
 	bottom:20px;
-	right:310px;
+	right:370px;
 	padding:10px;
 	}
 
@@ -222,3 +240,19 @@ display:inline;
 	font-size: 18px;
 }
 
+
+div.overflowHidden
+{
+background-color:#00FFFF;
+width:100px;
+height:50px;
+overflow:hidden;
+}
+
+div.overflowAuto
+{
+background-color:#00FFFF;
+width:100px;
+height:50px;
+overflow-y:auto;
+}

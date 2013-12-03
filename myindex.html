@@ -1,0 +1,95 @@
+<DOCTYPE html>
+
+<html>
+
+	<!-- JavaScript files go here -->
+	<head>
+
+		<meta charset="UTF-8" />
+
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+		<!-- load all JavaScript objects -->
+		<script src="js/jquery-1.10.2.min.js"></script>
+		<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="js/google-charts.min.js"></script>
+		<!--<script type='text/javascript' src='https://www.google.com/jsapi'></script> <!-- Google charts API -->
+		<script src="js/tabs.js"></script> <!-- Tabs component -->
+		<script src="js/map.js"></script> <!-- Map view -->
+
+		<!-- render all components -->
+		<script>
+		
+			/*
+			 * Mock data
+			 */
+			 
+			var properties = [ "GDP", "Population", "Gold Medals" ];
+			var mapheadings = ['Country', 'Awesomeness'];
+			var mapdata = 	[['Germany', 200],
+					['United States', 300],
+					['Brazil', 400],
+					['Canada', 500],
+					['France', 600],
+					['RU', 700],
+					['Bulgaria', 500],
+					['Great Britain', 10],
+					['Romania',70]];
+
+			var map = new Map("map", mapheadings, mapdata);
+
+			// document has loaded
+
+
+			$(function() {
+				$( "#tabs" ).tabs();
+			});
+
+
+		</script>
+
+	</head>
+
+	<!-- Document layout -->
+	<body>
+
+
+
+
+		<div id="tabs">
+			<ul>
+
+				<li><a href="#tab1">Map view</a></li>
+				<li><a href="#tab2">Scatterplot view</a></li>
+				<li><a href="#tab3">Comparison view</a></li>
+
+			</ul>
+			<div id="tab1">
+				<div id="map" style="width: 900px; height: 500px;">1</div>
+		
+			</div>
+	
+
+
+			<div id="tab2">
+				<div id="scatterplot">2</div>
+			</div>
+
+
+			<div id="tab3">
+				<div id="comparison">3</div>
+			</div>
+
+
+		</div>
+	
+
+		<div id="selection">
+
+
+		</div>
+
+	</body>
+
+</html>

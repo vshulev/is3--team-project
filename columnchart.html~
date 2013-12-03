@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    //var button = document.getElementById('b1');
+
+    function drawChart() {
+      // Disabling the button while the chart is drawing.
+     // button.disabled = true;
+     // google.visualization.events.addListener(chart, 'ready',
+     //     function() {
+     //       button.disabled = false;
+     //    });
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+        };
+
+	var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+
+  //  button.onclick = function() {
+    //  var newValue = 1000 - data.getValue(0, 1);
+      //data.setValue(0, 1, newValue);
+      //drawChart();
+   // }
+    drawChart();
+  }
+
+
+
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <li id="b1"> button </li>
+  </body>
+</html>
