@@ -116,43 +116,10 @@
 	    				</form>
 				</div><!-- End ResultsOutput-->
 		
-				<div id=selectionBar>
-					<div id="bar1">
-						<form> 
-							<select id="sel">
-								<option>GDP</option>
-								<option>Population</option>
-								<option>Growth</option>
-								<option>Gold Medals</option>
-								<option>Silver Medals</option>
-								<option>Bronze Medals</option>
-							</select>
-						</form>    
-	  <!--  </div>  -->
-						<p>versus</p>
-						<script>
-							rate1();
-						</script>
-	   <!--  <div id="bar2"> -->
-						<form>
-							<select id="sel2">
-								<option>GDP</option>
-								<option>Population</option>
-								<option>Growth</option>
-								<option>Gold Medals</option>
-								<option>Silver Medals</option>
-								<option>Bronze Medals</option>
-							</select>
-						</form>
-					</div><br>
-					<script>
-						rate2();
-					</script>
-	 <!--	Full Version of Header
-
+				<div id="selectionBar">
 	 	 <div id="bar1">
 		<script>
-		var test = Object.keys(sampleDataSet[0]);
+		var test = Object.keys(fullDataSet[0]);
 		$(function() {
 		  var options = '';
 		  for (var i = 0; i < test.length; i++) {	
@@ -163,11 +130,8 @@
 		</script>
 		<form> 
 		<select id="sel">
-		</select></form></div>
-		<div id="bar2">
+		</select></form>
 		<script>
-		//var test = Object.keys(sampleDataSet[0]);
-		var test = headers;
 		$(function() {
 	 	 var options = '';
 		  for (var i = 0; i < test.length; i++) {
@@ -178,7 +142,7 @@
 		</script>
 		<form> 
 		<select id="sel2">
-	//	</select></form></div><br> -->
+		</select></form></div><br>
 				</div><!-- End SelectionBar -->
 			</div>
 
