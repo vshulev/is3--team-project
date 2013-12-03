@@ -41,6 +41,8 @@
 			var map = new Map("map", mapheadings, mapdata, "world");
 
 			// scatterplot component
+			var scatterdata = model.getScatterplotData("GDP2011", "pop2010");
+			var scatter = new Scatter("scatterplot", ["GDP", "Population"], scatterdata);
 
 			// bar chart component
 
@@ -77,7 +79,7 @@
 	<body>
 		<div id="wrapper" class="container">
 			
-			<div id="mapContainer" class="twelve columns">
+			<div id="mapContainer" class="twelve columns" style="display:none">
 				<div id="regionSelector">
 					<input type="button" id="world" value="World" />
 					<input type="button" id="002" value="Africa" />
@@ -89,7 +91,7 @@
 				</div>
 				<div id="map"></div>
 			</div>
-			<!--<div id="scatterplot" class="twelve columns"></div>-->
+			<div id="scatterplot" class="twelve columns"></div>
 			<!--<div id="comparison" class="twelve columns"></div>-->
  
 			<div class="four columns">

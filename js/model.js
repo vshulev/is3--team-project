@@ -33,8 +33,13 @@ function Model(data) {
 		return out;
 	};
 	
-	this.getScatterplotData = function() {
-	
+	this.getScatterplotData = function(prop1, prop2) {
+		var out = new Array();
+		for(i = 0; i < this.selected.length; i++) {
+			if(this.selected[i][prop1] == null || this.selected[i][prop2] == null) continue;
+			out.push([ this.selected[i][prop1], this.selected[i][prop2] ]);
+		}
+		return out;
 	};
 	
 	this.getComparisonData = function() {

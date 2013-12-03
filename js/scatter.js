@@ -1,24 +1,32 @@
 
 function Scatter(elementID, sHeadings, sData) {
 
+	var data, chart, options;
+
 	google.load('visualization', '1', {'packages': ['corechart']});
-	google.setOnLoadCallback(drawRegionsMap);
+	google.setOnLoadCallback(drawScatterchart);
 
-	function drawRegionsMap() {
+	function drawScatterchart() {
 		var headings = [sHeadings];
-		var data = sHeadings.concat(sData);
-		console.log(data);
-	
-		var data = google.visualization.arrayToDataTable(data);
+		data = headings.concat(sData);
 
-		var options = {
-				title: 'Pop vs Awesome',
-				hAxis:{title: 'Pop', minValue: 0, maxValue: 1000},
-				vAxis:{title: 'Awesome', minValue: 0, maxValue: 1000},
-				legend: 'none'
-				};
+		data = google.visualization.arrayToDataTable(data);
 
-		var chart = new google.visualization.ScatterChart(document.getElementById(elementID));
+		options = {
+			title: sHeadings[0] + " / " + sHeadings[1],
+			hAxis:{title: sHeadings[0]},
+			vAxis:{title: sHeadings[1]},
+			legend: 'none'
+		};
+
+		chart = new google.visualization.ScatterChart(document.getElementById(elementID));
 		chart.draw(data, options);
 	}
+
+	this.update = function(headings, data) {
+		var h = [headings];
+		data = h.concat(data);
+		chart.draw(data, options);
+	};
+
 }
