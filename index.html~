@@ -43,7 +43,7 @@
 			// scatterplot component
 			var scatterdata = model.getScatterplotData("GDP2011", "pop2010");
 			console.log(scatterdata);
-			var scatter = new Scatter("scatterplot", ["Country", "GDP", "Population", "x"], scatterdata);
+			var scatter = new Scatter("scatterplot", ["GDP", "Population"], scatterdata);
 
 			// bar chart component
 

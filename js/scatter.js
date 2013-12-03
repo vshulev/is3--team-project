@@ -1,32 +1,43 @@
 
 function Scatter(elementID, sHeadings, sData) {
 
-	var data, chart, options;
+	var chart;
+	var options = {
+			title: sHeadings[0] + " / " + sHeadings[1],
+			hAxis:{title: sHeadings[0]},
+			vAxis:{title: sHeadings[1]},
+			legend: 'none'
+	};
 
 	google.load('visualization', '1', {'packages': ['corechart']});
 	google.setOnLoadCallback(drawScatterchart);
 
 	function drawScatterchart() {
-		var headings = [sHeadings];
-		data = headings.concat(sData);
+		var dataTable = new google.visualization.DataTable();
+		dataTable.addColumn("number", sHeadings[0]);
+		dataTable.addColumn("number", sHeadings[1]);
+		dataTable.addColumn({type: 'string', role: 'tooltip'});
 
-		data = google.visualization.arrayToDataTable(data);
-
-		options = {
-			title: sHeadings[0] + " / " + sHeadings[1],
-			hAxis:{title: sHeadings[0]},
-			vAxis:{title: sHeadings[1]},
-			legend: 'none'
-		};
+		dataTable.addRows(sData);
 
 		chart = new google.visualization.ScatterChart(document.getElementById(elementID));
-		chart.draw(data, options);
+		chart.draw(dataTable, options);
 	}
 
-	this.update = function(headings, data) {
-		var h = [headings];
-		data = h.concat(data);
-		chart.draw(data, options);
+	this.update = function(sHeadings, sData) {
+		// TODO move repeating code to separate function
+		var dataTable = new google.visualization.DataTable();
+		dataTable.addColumn("number", sHeadings[0]);
+		dataTable.addColumn("number", sHeadings[1]);
+		dataTable.addColumn({type: 'string', role: 'tooltip'});
+
+		dataTable.addRows(sData);
+
+		options.title = sHeadings[0] + " / " + sHeadings[1];
+		options.hAxis.title = sHeadings[0];
+		options.vAxis.title = sHeadings[1];
+
+		chart.draw(dataTable, options);
 	};
 
 }

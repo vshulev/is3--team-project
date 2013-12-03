@@ -9,21 +9,26 @@ function Model(data) {
 		this.selected.push(this.data[i]);
 	
 	this.getCounryInfo = function(cname) {
-		var result = lookup(cname);
+		var result = lookup(cname, data);
 		if(result == -1) return null;
 		return data[result];
 	};
 	
 	this.addToSelected = function(cname) {
-		var res = lookup(cname);
+		var res = lookup(cname, data);
 		if(res != -1)
 			selected.push(data[res]);
 	};
 	
 	this.removeFromSelected = function(cname) {
-		
+		var res = lookup(cname, selected);
+		if(res != -1)
+			selected.splice(res, 1);
 	};
 	
+	/*
+	 * Returns an array of data compatible with the map chart
+	 */
 	this.getMapData = function(prop1, prop2) {
 		var out = new Array();
 		for(i = 0; i < this.selected.length; i++) {
@@ -33,11 +38,14 @@ function Model(data) {
 		return out;
 	};
 	
+	/*
+	 * Returns an array of data compatible with the scatterplot chart.
+	 */
 	this.getScatterplotData = function(prop1, prop2) {
 		var out = new Array();
 		for(i = 0; i < this.selected.length; i++) {
 			if(this.selected[i][prop1] == null || this.selected[i][prop2] == null) continue;
-			out.push([ this.selected[i][prop1], this.selected[i][prop2] ]);
+			out.push([ this.selected[i][prop1], this.selected[i][prop2], this.selected[i]["Country"] ]);
 		}
 		return out;
 	};
@@ -46,10 +54,10 @@ function Model(data) {
 	
 	};
 	
-	function lookup(cname) {
-		var mid = Math.floor( data.length / 2 );
+	function lookup(cname, arr) {
+		var mid = Math.floor( arr.length / 2 );
 		var d1 = bsearch(0, mid, cname);
-		var d2 = bsearch(mid + 1, data.length, cname);
+		var d2 = bsearch(mid + 1, arr.length, cname);
 		return (d1 == -1) ? d2 : d1;
 	};
 	
