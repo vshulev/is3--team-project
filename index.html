@@ -113,10 +113,13 @@
 	 	 <div id="bar1">
 		<script>
 		var test = Object.keys(fullDataSet[0]);
+		test.splice(0,2);
+		test.splice(2,1);
+		test.splice(8,2);
 		$(function() {
 		  var options = '';
 		  for (var i = 0; i < test.length; i++) {	
-		      options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+		      options += '<option value="' + test[i] + '">' + test[i]+ '</option>';
 		  }
 		  $('#sel').html(options);
 		});
@@ -127,8 +130,8 @@
 		<script>
 		$(function() {
 	 	 var options = '';
-		  for (var i = 0; i < test.length; i++) {
-	 	     options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+		  for (var j = 0; j < test.length; j++) {
+	 	     options += '<option value="' + test[j] + '">' + test[j] + '</option>';
 	 	 }
 	  	$('#sel2').html(options);
 		});
