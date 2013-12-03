@@ -1,8 +1,16 @@
 
 function Map(elementID, mapheadings, mapdata) {
 
+	var listeners = new Array();
+
 	var continents = ["002", "150", "021", "005", "142", "009"];
-	var chart, data, options;
+	var chart, data;
+	var options = {
+		colorAxis: {colors: ['#CFFFBF', '#1D7300']},
+		enableRegionInteractivity: true,
+		region: "world",
+		explorer: {}
+	};
 
 	google.load('visualization', '1', {'packages': ['geochart']});
 	google.setOnLoadCallback(drawRegionsMap);
@@ -14,14 +22,11 @@ function Map(elementID, mapheadings, mapdata) {
 	
 		data = google.visualization.arrayToDataTable(data);
 
-		options = {
-			colorAxis: {colors: ['#CFFFBF', '#1D7300']},
-			enableRegionInteractivity: true,
-			region: "world"
-		};
-
 		chart = new google.visualization.GeoChart(document.getElementById(elementID));
-		google.visualization.events.addListener(chart, "regionClick", function(region) { console.log(region); });
+		google.visualization.events.addListener(chart, "regionClick", function(evt) {
+			for(i = 0; i < listeners.length; i++)
+				listeners[i].notify(evt.region);
+		});
 		chart.draw(data, options);
 	}
 
@@ -29,5 +34,7 @@ function Map(elementID, mapheadings, mapdata) {
 		options.region = rID;
 		chart.draw(data, options);
 	};
+
+	this.addListener = function(obj) { listeners.push(obj); }
 
 }

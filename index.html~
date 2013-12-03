@@ -4,6 +4,8 @@
 	<!-- JavaScript files go here -->
 	<head>
 
+		<title>IS3 AX2</title>
+
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
@@ -42,7 +44,6 @@
 
 			// scatterplot component
 			var scatterdata = model.getScatterplotData("GDP2011", "pop2010");
-			console.log(scatterdata);
 			var scatter = new Scatter("scatterplot", ["GDP", "Population"], scatterdata);
 
 			// bar chart component
@@ -51,10 +52,15 @@
 			$(function() {
 				
 				// region selector
+				// TODO should be moved inside map object
 				$("#regionSelector input[type='button']").click(function(evt) {
 					// redraw map
 					map.drawRegion(evt.target.id);
 				});
+
+				// country info
+				var cInfo = new CountryInfo("countryInfo");
+				map.addListener(cInfo);
 
 				// tabs - TODO replace with jQueryUI
 				var tabs = new Tabs("tabs", function(evtObject) {  
@@ -80,7 +86,7 @@
 	<body>
 		<div id="wrapper" class="container">
 			
-			<div id="mapContainer" class="twelve columns" style="display:none">
+			<div id="mapContainer" class="twelve columns">
 				<div id="regionSelector">
 					<input type="button" id="world" value="World" />
 					<input type="button" id="002" value="Africa" />
@@ -92,7 +98,7 @@
 				</div>
 				<div id="map"></div>
 			</div>
-			<div id="scatterplot" class="twelve columns"></div>
+			<div id="scatterplot" class="twelve columns" style="display:none"></div>
 			<!--<div id="comparison" class="twelve columns"></div>-->
  
 			<div class="four columns">
