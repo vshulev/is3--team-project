@@ -3,8 +3,9 @@ function Scatter(elementID, sHeadings, sData) {
 
 	var chart;
 	var options = {
-		height:527,
-		width: 844,
+		height:640,
+		width: 1040,
+		colors:['green','#308014'],
 		title: sHeadings[0] + " / " + sHeadings[1],
 		hAxis:{title: sHeadings[0]},
 		vAxis:{title: sHeadings[1]},

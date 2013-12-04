@@ -1,9 +1,17 @@
 body {
-	background: url('../assets/bg.jpg') !important;
+	<!-- background: url('../assets/bg.jpg') !important; -->
 }
 
 #mapContainer {
 	margin-bottom: -55px;
+}
+
+#wrapper{
+	background-image:url('assets/rig.xcf');
+	background-repeat:repeat-y;
+	background-position:right; 
+
+
 }
 
 #regionSelector {
@@ -20,4 +28,51 @@ body {
 	top: -55px;
 	z-index: 10;
 	margin-bottom: 0px;
+}
+#resultsOutput{
+	position:absolute;
+	border:thick;
+	border-color:#034;
+	background-color:#333;
+	bottom:-140px;
+	left:810px;
+	width:230px;
+	height:120px;
+	padding:10px;
+	}
+
+#outputbox{
+	position:absolute;
+	border:thick;
+	border-color:#034;
+	background-color:#333;
+	bottom:-140px;
+	left:540px;
+	width:230px;
+	height:120px;
+	padding:10px;
+}
+
+#searchfield{
+	position:absolute;
+	border:thick;
+	border-color:#034;
+	background-color:#333;
+	bottom:-140px;
+	left:270px;
+	width:230px;
+	height:120px;
+	padding:10px;
+}
+
+#tabs{
+	position:absolute;
+	border:thick;
+	border-color:#034;
+	background-color:#333;
+	bottom:-140px;
+	left:0px;
+	width:230px;
+	height:120px;
+	padding:10px;
 }

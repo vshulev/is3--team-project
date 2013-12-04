@@ -6,6 +6,8 @@ function Map(elementID, mapheadings, mapdata) {
 	var continents = ["002", "150", "021", "005", "142", "009"];
 	var chart, data;
 	var options = {
+		height:527,
+		width: 844,
 		colorAxis: {colors: ['#CFFFBF', '#1D7300']},
 		enableRegionInteractivity: true,
 		region: "world",
