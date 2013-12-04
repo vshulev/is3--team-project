@@ -3,6 +3,8 @@ function Comparison(elementID, data) {
 
 	var chart, chartData;
 	var options = {
+		height:527,
+		width: 844,
 		animation: {
 			duration: 1000,
 			easing: 'out'

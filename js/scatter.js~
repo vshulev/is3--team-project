@@ -1,8 +1,10 @@
 
-function Scatter(elementID, model) {
+function Scatter(elementID, sHeadings, sData) {
 
 	var chart;
 	var options = {
+		height:600,
+		width: 800,
 		title: sHeadings[0] + " / " + sHeadings[1],
 		hAxis:{title: sHeadings[0]},
 		vAxis:{title: sHeadings[1]},

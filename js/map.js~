@@ -35,7 +35,7 @@ function Map(elementID, mapheadings, mapdata) {
 		chart.draw(data, options);
 	};
 	
-	this.redraw() = function(h, d) {
+	this.redraw = function(h, d) {
 		var headings = [h];
 		data = headings.concat(d);
 		
