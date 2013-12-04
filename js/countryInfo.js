@@ -1,5 +1,5 @@
 
-function CountryInfo(elementID) {
+function CountryInfo(elementID, model) {
 
 	var cInfo = document.getElementById(elementID);
 

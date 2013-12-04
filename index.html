@@ -22,6 +22,7 @@
 		<script src="js/tabs.js"></script> <!-- Tabs component -->
 		<script src="js/map.js"></script> <!-- Map view -->
 		<script src="js/scatter.js"></script><!-- Scatter view -->
+		<script src="js/comparison.js"></script><!-- Comparison view -->
 		<script src="js/countryInfo.js"></script><!-- Country info box -->
   		<script src="js/jquery.autocomplete.min.js"></script>
   		<script src="js/countries.js"></script>
@@ -41,13 +42,16 @@
 
 			// map component
 			var mapdata = model.getMapData("GDP2011", "pop2010");
-			var map = new Map("map", mapheadings, mapdata, "world");
+			var map = new Map("map", mapheadings, mapdata);
 
 			// scatterplot component
 			var scatterdata = model.getScatterplotData("GDP2011", "pop2010");
 			var scatter = new Scatter("scatterplot", ["GDP", "Population"], scatterdata);
 
-			// bar chart component
+			// bar chart component (comparison view)
+			var comparisondata = model.getComparisonData(["GDP2011", "pop2010"], 5);
+			console.log(comparisondata);
+			var comparison = new Comparison("comparison", comparisondata);
 
 			// document has loaded
 			$(function() {
@@ -60,7 +64,7 @@
 				});
 
 				// country info
-				var cInfo = new CountryInfo("countryInfo");
+				var cInfo = new CountryInfo("countryInfo", model);
 				map.addListener(cInfo);
 
 				// tabs - TODO replace with jQueryUI
@@ -87,7 +91,7 @@
 	<body>
 		<div id="wrapper" class="container">
 			
-			<div id="mapContainer" class="twelve columns">
+			<div id="mapContainer" class="twelve columns" style="display: none">
 				<div id="regionSelector">
 					<input type="button" id="world" value="World" />
 					<input type="button" id="002" value="Africa" />
@@ -100,7 +104,7 @@
 				<div id="map"></div>
 			</div>
 			<div id="scatterplot" class="twelve columns" style="display:none"></div>
-			<!--<div id="comparison" class="twelve columns"></div>-->
+			<div id="comparison" class="twelve columns"></div>
  
 			<div class="four columns">
 				<div id="countryInfo">

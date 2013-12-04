@@ -1,13 +1,13 @@
 
-function Scatter(elementID, sHeadings, sData) {
+function Scatter(elementID, model) {
 
 	var chart;
 	var options = {
-			title: sHeadings[0] + " / " + sHeadings[1],
-			hAxis:{title: sHeadings[0]},
-			vAxis:{title: sHeadings[1]},
-			legend: 'none',
-			explorer: {}
+		title: sHeadings[0] + " / " + sHeadings[1],
+		hAxis:{title: sHeadings[0]},
+		vAxis:{title: sHeadings[1]},
+		legend: 'none',
+		explorer: {}
 	};
 
 	google.load('visualization', '1', {'packages': ['corechart']});

@@ -50,8 +50,27 @@ function Model(data) {
 		return out;
 	};
 	
-	this.getComparisonData = function() {
-	
+	/*
+	 * Returns an array of data compatible with the bar chart.
+	 */
+	this.getComparisonData = function(props, maxCountries) {
+		maxCountries = (maxCountries < this.selected.length) ? maxCountries : this.selected.length;	
+		
+		var out = new Array();
+		var row = new Array();
+		row.push("x");
+		for(i = 0; i < maxCountries; i++) {
+			row.push(this.selected[i]["Country"]);
+		}
+		out.push(row);
+		for(j = 0; j < props.length; j++) {
+			row = new Array();
+			row.push(props[j]);
+			for(i = 0; i < maxCountries; i++)
+				row.push(this.selected[i][props[j]]);
+			out.push(row);
+		}
+		return out;
 	};
 	
 	function lookup(cname, arr) {

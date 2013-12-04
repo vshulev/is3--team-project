@@ -4,7 +4,7 @@ function CountryInfo(elementID) {
 	var cInfo = document.getElementById(elementID);
 
 	this.notify = function(region) {
-		
+		cInfo.innerHTML = region;
 	}
 
 }
