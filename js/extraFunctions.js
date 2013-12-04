@@ -1,9 +1,3 @@
-function compare(){
-var cList=document.getElementById("head");
-document.getElemementById("compare").value=cList.options[cList.selectedIndex].text;
-
-}
-
 function changeThis(){
 	var formInput = document.getElementById('autocomplete').value;
 	document.getElementById('newText').innerHTML = formInput;
@@ -11,27 +5,18 @@ function changeThis(){
 
 function rate1(){
 	$("#sel").change(function() {
-    rate1 = $("#sel option:selected").text(); //no 'var' to make it a global variable
+    var rate1 = $("#sel option:selected").text(); //no 'var' to make it a global variable
     $('#selVal').val(rate1);
-updateText1();});  
+	return rate1;
+});  
 }
 
 
 function rate2(){
     $("#sel2").change(function() {
-    rate2 = $("#sel2 option:selected").text(); //no 'var' to make it a global variable
-    $('#selVal2').val(rate2);
-updateText2();
+   $('#selVal2') = $("#sel2 option:selected").text(); //no 'var' to make it a global variable
 });  
 
 }
 
-function updateText1(){
-	var varText = document.getElementById('selVal').value;
-	document.getElementById('first').innerHTML = varText;
-}
 
-function updateText2(){
-	var varText2 = document.getElementById('selVal2').value;
-	document.getElementById('second').innerHTML = varText2;
-}

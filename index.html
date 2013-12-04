@@ -28,7 +28,7 @@
   		<script src="js/countries.js"></script>
 		<script src="js/sampleD.js"></script>
 		<script src="js/model.js"></script>
-		<script src="js/extraFunctions.js"></script>
+        <script src="js/results.js"></script>
 
 		<!-- render all components -->
 		<script>
@@ -108,93 +108,55 @@
  
 			<div class="four columns">
 				<div id="countryInfo">
-					Click on a country to display information
 				</div>
 
-				<div id="resultsOutput"><!-- This box will be repeated for every country selected -->
-					<form>
-						<input type="text" id="selVal" value="">
-					</form>
-					<form>
-	    					<input type="text" id="selVal2" value="">
-	    				</form>
+				<div id="resultsOutput">
+                <div id="resultsOutputText"></div><!-- Country Name, based on 'selectedList' ID-->
+                <div id="resultsOutput1"></div>
+                <div id="resultsOutput2"></div>
+                <!-- This box will be repeated for every country selected -->
 				</div><!-- End ResultsOutput-->
 		
-				<div id=selectionBar>
-					<div id="bar1">
-						<form> 
-							<select id="sel">
-								<option>GDP</option>
-								<option>Population</option>
-								<option>Growth</option>
-								<option>Gold Medals</option>
-								<option>Silver Medals</option>
-								<option>Bronze Medals</option>
-							</select>
-						</form>    
-	  <!--  </div>  -->
-						<p>versus</p>
-						<script>
-							rate1();
-						</script>
-	   <!--  <div id="bar2"> -->
-						<form>
-							<select id="sel2">
-								<option>GDP</option>
-								<option>Population</option>
-								<option>Growth</option>
-								<option>Gold Medals</option>
-								<option>Silver Medals</option>
-								<option>Bronze Medals</option>
-							</select>
-						</form>
-					</div><br>
-					<script>
-						rate2();
-					</script>
-	 <!--	Full Version of Header
-
+				<div id="selectionBar">
 	 	 <div id="bar1">
 		<script>
-		var test = Object.keys(sampleDataSet[0]);
+		var test = Object.keys(fullDataSet[0]);
+		test.splice(0,2);
+		test.splice(2,1);
+		test.splice(8,2);
 		$(function() {
 		  var options = '';
 		  for (var i = 0; i < test.length; i++) {	
-		      options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+		      options += '<option value="' + test[i] + '">' + test[i]+ '</option>';
 		  }
-		  $('#sel').html(options);
+		  $('#sel1').html(options);
 		});
 		</script>
 		<form> 
-		<select id="sel">
-		</select></form></div>
-		<div id="bar2">
+		<select id="sel1"><script>rate1();</script>
+		</select></form>
 		<script>
-		//var test = Object.keys(sampleDataSet[0]);
-		var test = headers;
 		$(function() {
 	 	 var options = '';
-		  for (var i = 0; i < test.length; i++) {
-	 	     options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+		  for (var j = 0; j < test.length; j++) {
+	 	     options += '<option value="' + test[j] + '">' + test[j] + '</option>';
 	 	 }
 	  	$('#sel2').html(options);
 		});
 		</script>
 		<form> 
-		<select id="sel2">
-	//	</select></form></div><br> -->
+		<select id="sel2"> <script>rate2();</script>  
+		</select></form></div><br>
 				</div><!-- End SelectionBar -->
 			</div>
 
 			<div class="sixteen columns">
 
-			<ul id="tabs" class="four columns">
-
-				<li id="maptab">Map View</li>
-				<li id="scatterplottab">Scatterplot View</li>
-				<li id="comparisontab">Comparison View</li>
-
-			</ul>
+			<div id="tabs" class="four columns">
+					<input type="button" id="maptab" value="Map" />
+					<input type="button" id="scatterplottab" value="ScatterPlot" />
+					<input type="button" id="comparisontab" value="Comparison" />
+			</div>
 
 			<div id="searchfield" class="four columns">
 

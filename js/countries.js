@@ -1,3 +1,6 @@
+var selected = [];
+
+
 $(function(){
 
 
@@ -7,7 +10,6 @@ var countries = [];
 			countries.push(fullDataSet[i].Country);
 }
 
-var selected = [];
 
 var sList = document.getElementById('selectedList');
 
@@ -36,15 +38,14 @@ $('#autocomplete').autocomplete({
 
 function removeOption()
 {
-  alert("You selected: " + x.options[x.selectedIndex].text);
-  var x=document.getElementById("selectedList");
-  x.remove(x.selectedIndex);
-  //alert("You selected: " + x.options[x.selectedIndex].text);
-
-  if(selected.indexOf(x.text) != -1) { // Make sure the value exists
-        selected.splice(selected.indexOf(x), 1);
   
+  var x=document.getElementById("selectedList");
+  var selection=x.options[x.selectedIndex].text;
+  x.remove(x.selectedIndex);
+  
+  if(selected.indexOf(selection) != -1) { // Make sure the value exists
+        
+        selected.splice(selected.indexOf(selection), 1);
+      }
 
-    }   
 }
-
