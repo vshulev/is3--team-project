@@ -5,7 +5,7 @@ function Comparison(elementID, data) {
 	var options = {
 		height:640,
 		width: 1040,
-		colors:['green','#308014'],
+
 		animation: {
 			duration: 1000,
 			easing: 'out'
