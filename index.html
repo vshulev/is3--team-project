@@ -82,7 +82,7 @@
 				var scatterplotview = $("#scatterplot");
 				var comparisonview = $("#comparison");
 
-				//mapview.show(); scatterplotview.hide(); comparisonview.hide();
+				mapview.show(); scatterplotview.hide(); comparisonview.hide();
 
 				var maptab = $("#maptab");
 				var scatterplottab = $("#scatterplottab");
@@ -95,6 +95,8 @@
 				// criteria selection
 				var sel1 = $("#sel1");
 				var sel2 = $("#sel2");
+				$('#selVal1').html(sel1);
+				$('#selVal2').html(sel2);
 
 				// create option tags
 				var option;
@@ -151,8 +153,8 @@
 
 				<div id="resultsOutput">
 					<div id="resultsOutputText"></div><!-- Country Name, based on 'selectedList' ID-->
-					<div id="resultsOutput1"></div>
-					<div id="resultsOutput2"></div>
+					<div id="selVal1"></div>
+					<div id="selVal2"></div>
 					<!-- This box will be repeated for every country selected -->
 				</div><!-- End ResultsOutput-->
 		
