@@ -1,6 +1,7 @@
 
-function Model(data) {
+function Model(head, data) {
 
+	this.headers = head;
 	this.data = data;
 	this.selected = new Array(); // subset of selected countries
 	
@@ -32,8 +33,8 @@ function Model(data) {
 	this.getMapData = function(prop1, prop2) {
 		var out = new Array();
 		for(i = 0; i < this.selected.length; i++) {
-			if(this.selected[i][prop1] == null || this.selected[i][prop2] == null) continue;
-			out.push([ this.selected[i]["Country"], this.selected[i][prop1] / this.selected[i][prop2] ]);
+			if(this.selected[i][prop1] == null || this.selected[i][prop2] == null || this.selected[i][prop2] == 0) continue;
+			out.push([ this.selected[i]["ISO"], this.selected[i][prop1] / this.selected[i][prop2] ]);
 		}
 		return out;
 	};
@@ -53,7 +54,7 @@ function Model(data) {
 	/*
 	 * Returns an array of data compatible with the bar chart.
 	 */
-	this.getComparisonData = function(props, maxCountries) {
+	this.getComparisonData = function(prop1, prop2, maxCountries) {
 		maxCountries = (maxCountries < this.selected.length) ? maxCountries : this.selected.length;	
 		
 		var out = new Array();
@@ -63,13 +64,13 @@ function Model(data) {
 			row.push(this.selected[i]["Country"]);
 		}
 		out.push(row);
-		for(j = 0; j < props.length; j++) {
-			row = new Array();
-			row.push(props[j]);
-			for(i = 0; i < maxCountries; i++)
-				row.push(this.selected[i][props[j]]);
-			out.push(row);
+		row = new Array();
+		row.push(prop1 + " / " + prop2);
+		for(i = 0; i < maxCountries; i++) {
+			if(this.selected[i][prop1] == null || this.selected[i][prop2] == null || this.selected[i][prop2] == 0) row.push(0);
+			row.push(this.selected[i][prop1] / this.selected[i][prop2]);
 		}
+		out.push(row);
 		return out;
 	};
 	

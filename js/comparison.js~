@@ -6,8 +6,7 @@ function Comparison(elementID, data) {
 		animation: {
 			duration: 1000,
 			easing: 'out'
-		},
-		explorer: {}
+		}
 	};
 
 	var criteria = new Array();

@@ -1,14 +1,10 @@
 
-function Map(elementID, m) {
+function Map(elementID, mapheadings, mapdata) {
 
 	var listeners = new Array();
-	var model = m;
-	var chart
 
-	// initial data
-	var data = ["GDP per capita"];
-
-	// default options
+	var continents = ["002", "150", "021", "005", "142", "009"];
+	var chart, data;
 	var options = {
 		colorAxis: {colors: ['#CFFFBF', '#1D7300']},
 		enableRegionInteractivity: true,
@@ -36,6 +32,14 @@ function Map(elementID, m) {
 
 	this.drawRegion = function(rID) {
 		options.region = rID;
+		chart.draw(data, options);
+	};
+	
+	this.redraw() = function(h, d) {
+		var headings = [h];
+		data = headings.concat(d);
+		
+		data = google.visualization.arrayToDataTable(data);
 		chart.draw(data, options);
 	};
 

@@ -34,6 +34,14 @@ function Map(elementID, mapheadings, mapdata) {
 		options.region = rID;
 		chart.draw(data, options);
 	};
+	
+	this.redraw = function(h, d) {
+		var headings = [h];
+		data = headings.concat(d);
+		
+		data = google.visualization.arrayToDataTable(data);
+		chart.draw(data, options);
+	};
 
 	this.addListener = function(obj) { listeners.push(obj); }
 

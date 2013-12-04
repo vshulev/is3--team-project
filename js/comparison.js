@@ -20,5 +20,10 @@ function Comparison(elementID, data) {
 		chartData = google.visualization.arrayToDataTable(data);
 		chart.draw(chartData, options);
 	}
+	
+	this.redraw = function(data) {
+		chartData = google.visualization.arrayToDataTable(data);
+		chart.draw(chartData, options)
+	}
 
 }

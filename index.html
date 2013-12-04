@@ -17,7 +17,7 @@
 		<link rel="stylesheet" href="css/skeleton/layout.css">
 
 		<!-- load all JavaScript objects -->
-		<script src='https://www.google.com/jsapi'></script> <!-- Google charts API -->
+		<script src="https://www.google.com/jsapi"></script> <!-- Google charts API -->
 		<script src="js/jquery-1.9.1.min.js"></script> <!-- jQuery -->
 		<script src="js/map.js"></script> <!-- Map view -->
 		<script src="js/scatter.js"></script><!-- Scatter view -->
@@ -27,30 +27,41 @@
   		<script src="js/countries.js"></script>
 		<script src="js/sampleD.js"></script>
 		<script src="js/model.js"></script>
-        <script src="js/results.js"></script>
+        	<script src="js/results.js"></script>
 
 		<!-- render all components -->
 		<script>
-
-			// mock data			 
-			var properties = [ "GDP", "Population", "Gold Medals" ];
-			var mapheadings = ['Country', 'GDP Per Capita'];
-
+		
 			// model
-			var model = new Model(fullDataSet);
+			var model = new Model(headers, fullDataSet);
+			var mapheadings = ["Country", model.headers[0] + " / " + model.headers[1]];
 
 			// map component
-			var mapdata = model.getMapData("GDP2011", "pop2010");
+			var mapdata = model.getMapData(model.headers[0], model.headers[1]);
 			var map = new Map("map", mapheadings, mapdata);
 
 			// scatterplot component
-			var scatterdata = model.getScatterplotData("GDP2011", "pop2010");
-			var scatter = new Scatter("scatterplot", ["GDP", "Population"], scatterdata);
+			var scatterdata = model.getScatterplotData(model.headers[0], model.headers[1]);
+			var scatter = new Scatter("scatterplot", [model.headers[0], model.headers[1]], scatterdata);
 
 			// bar chart component (comparison view)
-			var comparisondata = model.getComparisonData(["GDP2011", "pop2010"], 5);
-			console.log(comparisondata);
+			var comparisondata = model.getComparisonData(model.headers[0], model.headers[1], 10);
 			var comparison = new Comparison("comparison", comparisondata);
+
+			function updateViews(prop1, prop2) {
+				// update map
+				mapheadings = ["Country", prop1 + " / " + prop2];
+				mapdata = model.getMapData(prop1, prop2);
+				map.redraw(mapheadings, mapdata);
+				
+				// update scatterplot view
+				scatterdata = model.getScatterplotData(prop1, prop2);
+				scatter.update([prop1, prop2], scatterdata);
+				
+				// update comparison view
+				comparisondata = model.getComparisonData(prop1, prop2, 10);
+				comparison.redraw(comparisondata);
+			}
 
 			// document has loaded
 			$(function() {
@@ -71,7 +82,7 @@
 				var scatterplotview = $("#scatterplot");
 				var comparisonview = $("#comparison");
 
-				mapview.show(); scatterplotview.hide(); comparisonview.hide();
+				//mapview.show(); scatterplotview.hide(); comparisonview.hide();
 
 				var maptab = $("#maptab");
 				var scatterplottab = $("#scatterplottab");
@@ -80,6 +91,26 @@
 				maptab.click(function() { mapview.show(); scatterplotview.hide(); comparisonview.hide(); });
 				scatterplottab.click(function() { mapview.hide(); scatterplotview.show(); comparisonview.hide(); });
 				comparisontab.click(function() { mapview.hide(); scatterplotview.hide(); comparisonview.show(); });
+
+				// criteria selection
+				var sel1 = $("#sel1");
+				var sel2 = $("#sel2");
+
+				// create option tags
+				var option;
+				for(i = 0; i < model.headers.length; i++) {
+					option = "<option value='" + model.headers[i] + "'>" + model.headers[i] + "</option>";
+					sel1.append(option);
+					sel2.append(option);
+				}
+
+				sel1.change(function() {
+					updateViews(sel1.val(), sel2.val());
+				});
+				
+				sel2.change(function(evt) {
+					updateViews(sel1.val(), sel2.val());
+				});
 
 				// autocomplete
 				var autocomplete = document.getElementById("autocomplete");
@@ -119,42 +150,50 @@
 				</div>
 
 				<div id="resultsOutput">
-                <div id="resultsOutputText"></div><!-- Country Name, based on 'selectedList' ID-->
-                <div id="resultsOutput1"></div>
-                <div id="resultsOutput2"></div>
-                <!-- This box will be repeated for every country selected -->
+					<div id="resultsOutputText"></div><!-- Country Name, based on 'selectedList' ID-->
+					<div id="resultsOutput1"></div>
+					<div id="resultsOutput2"></div>
+					<!-- This box will be repeated for every country selected -->
 				</div><!-- End ResultsOutput-->
 		
 				<div id="selectionBar">
-	 	 <div id="bar1">
-		<script>
-		var test = Object.keys(fullDataSet[0]);
-		test.splice(0,2);
-		test.splice(2,1);
-		test.splice(8,2);
-		$(function() {
-		  var options = '';
-		  for (var i = 0; i < test.length; i++) {	
-		      options += '<option value="' + test[i] + '">' + test[i]+ '</option>';
-		  }
-		  $('#sel1').html(options);
-		});
-		</script>
-		<form> 
-		<select id="sel1"><script>rate1();</script>
-		</select></form>
-		<script>
-		$(function() {
-	 	 var options = '';
-		  for (var j = 0; j < test.length; j++) {
-	 	     options += '<option value="' + test[j] + '">' + test[j] + '</option>';
-	 	 }
-	  	$('#sel2').html(options);
-		});
-		</script>
-		<form> 
-		<select id="sel2"> <script>rate2();</script>  
-		</select></form></div><br>
+					<select id="sel1">
+					</select>
+					
+					<select id="sel2">
+					</select>
+					<!--
+				 	<div id="bar1">
+						<script>
+							var test = Object.keys(fullDataSet[0]);
+							test.splice(0,2);
+							test.splice(2,1);
+							test.splice(8,2);
+							$(function() {
+							  var options = '';
+							  for (var i = 0; i < test.length; i++) {	
+							      options += '<option value="' + test[i] + '">' + test[i]+ '</option>';
+							  }
+							  $('#sel1').html(options);
+							});
+						</script>
+						<form> 
+							<select id="sel1"><script>rate1();</script></select>
+						</form>
+						<script>
+							$(function() {
+						 	 var options = '';
+							  for (var j = 0; j < test.length; j++) {
+						 	     options += '<option value="' + test[j] + '">' + test[j] + '</option>';
+						 	 }
+						  	$('#sel2').html(options);
+							});
+						</script>
+						<form> 
+							<select id="sel2"><script>rate2();</script></select>
+						</form>
+					</div><br>
+					-->
 				</div><!-- End SelectionBar -->
 			</div>
 
