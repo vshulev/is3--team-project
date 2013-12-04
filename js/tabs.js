@@ -7,7 +7,6 @@ function Tabs(elementID, callback) {
 	var children = this.tabsContainer.childNodes;
 	for(i = 0; i < children.length; i++) {	
 		children[i].onclick = callback;
-	}
-	
+	}	
 
 }

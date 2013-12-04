@@ -19,7 +19,6 @@
 		<!-- load all JavaScript objects -->
 		<script src='https://www.google.com/jsapi'></script> <!-- Google charts API -->
 		<script src="js/jquery-1.9.1.min.js"></script> <!-- jQuery -->
-		<script src="js/tabs.js"></script> <!-- Tabs component -->
 		<script src="js/map.js"></script> <!-- Map view -->
 		<script src="js/scatter.js"></script><!-- Scatter view -->
 		<script src="js/comparison.js"></script><!-- Comparison view -->
@@ -28,7 +27,7 @@
   		<script src="js/countries.js"></script>
 		<script src="js/sampleD.js"></script>
 		<script src="js/model.js"></script>
-		<script src="js/extraFunctions.js"></script>
+        <script src="js/results.js"></script>
 
 		<!-- render all components -->
 		<script>
@@ -49,7 +48,7 @@
 			var scatter = new Scatter("scatterplot", ["GDP", "Population"], scatterdata);
 
 			// bar chart component (comparison view)
-			var comparisondata = model.getComparisonData(["GDP2011", "pop2010"], 10);
+			var comparisondata = model.getComparisonData(["GDP2011", "pop2010"], 5);
 			console.log(comparisondata);
 			var comparison = new Comparison("comparison", comparisondata);
 
@@ -67,11 +66,20 @@
 				var cInfo = new CountryInfo("countryInfo", model);
 				map.addListener(cInfo);
 
-				// tabs - TODO replace with jQueryUI
-				var tabs = new Tabs("tabs", function(evtObject) {  
-					// code that handles view selection...
-					console.log(evtObject);
-				});
+				// tabs
+				var mapview = $("#mapContainer");
+				var scatterplotview = $("#scatterplot");
+				var comparisonview = $("#comparison");
+
+				//mapview.show(); scatterplotview.hide(); comparisonview.hide();
+
+				var maptab = $("#maptab");
+				var scatterplottab = $("#scatterplottab");
+				var comparisontab = $("#comparisontab");
+
+				maptab.click(function() { mapview.show(); scatterplotview.hide(); comparisonview.hide(); });
+				scatterplottab.click(function() { mapview.hide(); scatterplotview.show(); comparisonview.hide(); });
+				comparisontab.click(function() { mapview.hide(); scatterplotview.hide(); comparisonview.show(); });
 
 				// autocomplete
 				var autocomplete = document.getElementById("autocomplete");
@@ -91,7 +99,7 @@
 	<body>
 		<div id="wrapper" class="container">
 			
-			<div id="mapContainer" class="twelve columns" style="display: none">
+			<div id="mapContainer" class="twelve columns">
 				<div id="regionSelector">
 					<input type="button" id="world" value="World" />
 					<input type="button" id="002" value="Africa" />
@@ -103,98 +111,60 @@
 				</div>
 				<div id="map"></div>
 			</div>
-			<div id="scatterplot" class="twelve columns" style="display:none"></div>
+			<div id="scatterplot" class="twelve columns"></div>
 			<div id="comparison" class="twelve columns"></div>
  
 			<div class="four columns">
 				<div id="countryInfo">
-					Click on a country to display information
 				</div>
 
-				<div id="resultsOutput"><!-- This box will be repeated for every country selected -->
-					<form>
-						<input type="text" id="selVal" value="">
-					</form>
-					<form>
-	    					<input type="text" id="selVal2" value="">
-	    				</form>
+				<div id="resultsOutput">
+                <div id="resultsOutputText"></div><!-- Country Name, based on 'selectedList' ID-->
+                <div id="resultsOutput1"></div>
+                <div id="resultsOutput2"></div>
+                <!-- This box will be repeated for every country selected -->
 				</div><!-- End ResultsOutput-->
 		
-				<div id=selectionBar>
-					<div id="bar1">
-						<form> 
-							<select id="sel">
-								<option>GDP</option>
-								<option>Population</option>
-								<option>Growth</option>
-								<option>Gold Medals</option>
-								<option>Silver Medals</option>
-								<option>Bronze Medals</option>
-							</select>
-						</form>    
-	  <!--  </div>  -->
-						<p>versus</p>
-						<script>
-							rate1();
-						</script>
-	   <!--  <div id="bar2"> -->
-						<form>
-							<select id="sel2">
-								<option>GDP</option>
-								<option>Population</option>
-								<option>Growth</option>
-								<option>Gold Medals</option>
-								<option>Silver Medals</option>
-								<option>Bronze Medals</option>
-							</select>
-						</form>
-					</div><br>
-					<script>
-						rate2();
-					</script>
-	 <!--	Full Version of Header
-
+				<div id="selectionBar">
 	 	 <div id="bar1">
 		<script>
-		var test = Object.keys(sampleDataSet[0]);
+		var test = Object.keys(fullDataSet[0]);
+		test.splice(0,2);
+		test.splice(2,1);
+		test.splice(8,2);
 		$(function() {
 		  var options = '';
 		  for (var i = 0; i < test.length; i++) {	
-		      options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+		      options += '<option value="' + test[i] + '">' + test[i]+ '</option>';
 		  }
-		  $('#sel').html(options);
+		  $('#sel1').html(options);
 		});
 		</script>
 		<form> 
-		<select id="sel">
-		</select></form></div>
-		<div id="bar2">
+		<select id="sel1"><script>rate1();</script>
+		</select></form>
 		<script>
-		//var test = Object.keys(sampleDataSet[0]);
-		var test = headers;
 		$(function() {
 	 	 var options = '';
-		  for (var i = 0; i < test.length; i++) {
-	 	     options += '<option value="' + test[i] + '">' + test[i] + '</option>';
+		  for (var j = 0; j < test.length; j++) {
+	 	     options += '<option value="' + test[j] + '">' + test[j] + '</option>';
 	 	 }
 	  	$('#sel2').html(options);
 		});
 		</script>
 		<form> 
-		<select id="sel2">
-	//	</select></form></div><br> -->
+		<select id="sel2"> <script>rate2();</script>  
+		</select></form></div><br>
 				</div><!-- End SelectionBar -->
 			</div>
 
 			<div class="sixteen columns">
 
-			<ul id="tabs" class="four columns">
-
-				<li id="maptab">Map View</li>
-				<li id="scatterplottab">Scatterplot View</li>
-				<li id="comparisontab">Comparison View</li>
-
-			</ul>
+			<div id="tabs" class="four columns">
+				<input type="button" id="maptab" value="Map" />
+				<input type="button" id="scatterplottab" value="ScatterPlot" />
+				<input type="button" id="comparisontab" value="Comparison" />
+			</div>
 
 			<div id="searchfield" class="four columns">
 

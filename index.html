@@ -19,7 +19,6 @@
 		<!-- load all JavaScript objects -->
 		<script src='https://www.google.com/jsapi'></script> <!-- Google charts API -->
 		<script src="js/jquery-1.9.1.min.js"></script> <!-- jQuery -->
-		<script src="js/tabs.js"></script> <!-- Tabs component -->
 		<script src="js/map.js"></script> <!-- Map view -->
 		<script src="js/scatter.js"></script><!-- Scatter view -->
 		<script src="js/comparison.js"></script><!-- Comparison view -->
@@ -67,11 +66,20 @@
 				var cInfo = new CountryInfo("countryInfo", model);
 				map.addListener(cInfo);
 
-				// tabs - TODO replace with jQueryUI
-				var tabs = new Tabs("tabs", function(evtObject) {  
-					// code that handles view selection...
-					console.log(evtObject);
-				});
+				// tabs
+				var mapview = $("#mapContainer");
+				var scatterplotview = $("#scatterplot");
+				var comparisonview = $("#comparison");
+
+				mapview.show(); scatterplotview.hide(); comparisonview.hide();
+
+				var maptab = $("#maptab");
+				var scatterplottab = $("#scatterplottab");
+				var comparisontab = $("#comparisontab");
+
+				maptab.click(function() { mapview.show(); scatterplotview.hide(); comparisonview.hide(); });
+				scatterplottab.click(function() { mapview.hide(); scatterplotview.show(); comparisonview.hide(); });
+				comparisontab.click(function() { mapview.hide(); scatterplotview.hide(); comparisonview.show(); });
 
 				// autocomplete
 				var autocomplete = document.getElementById("autocomplete");
@@ -91,7 +99,7 @@
 	<body>
 		<div id="wrapper" class="container">
 			
-			<div id="mapContainer" class="twelve columns" style="display: none">
+			<div id="mapContainer" class="twelve columns">
 				<div id="regionSelector">
 					<input type="button" id="world" value="World" />
 					<input type="button" id="002" value="Africa" />
@@ -103,7 +111,7 @@
 				</div>
 				<div id="map"></div>
 			</div>
-			<div id="scatterplot" class="twelve columns" style="display:none"></div>
+			<div id="scatterplot" class="twelve columns"></div>
 			<div id="comparison" class="twelve columns"></div>
  
 			<div class="four columns">
@@ -153,9 +161,9 @@
 			<div class="sixteen columns">
 
 			<div id="tabs" class="four columns">
-					<input type="button" id="maptab" value="Map" />
-					<input type="button" id="scatterplottab" value="ScatterPlot" />
-					<input type="button" id="comparisontab" value="Comparison" />
+				<input type="button" id="maptab" value="Map" />
+				<input type="button" id="scatterplottab" value="ScatterPlot" />
+				<input type="button" id="comparisontab" value="Comparison" />
 			</div>
 
 			<div id="searchfield" class="four columns">
