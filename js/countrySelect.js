@@ -17,6 +17,8 @@ function CountrySelect(listID, autocomplID, selectAllID, deselectID, deselectAll
 
 		lookup: countries,
 		onSelect: function(suggestion) {
+			$( "#" + autocomplID ).val("");
+
 			var country = suggestion.value;
 			var countryRecord = model.getCountryInfoByName(country);
       
