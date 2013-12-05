@@ -24,7 +24,8 @@
 		<script src="js/comparison.js"></script><!-- Comparison view -->
 		<script src="js/countryInfo.js"></script><!-- Country info box -->
   		<script src="js/jquery.autocomplete.min.js"></script>
-  		<script src="js/countries.js"></script>
+		<script src="js/countrySelect.js"></script>
+  		<!--<script src="js/countries.js"></script>-->
 		<script src="js/sampleD.js"></script>
 		<script src="js/model.js"></script>
         	<script src="js/results.js"></script>
@@ -129,6 +130,11 @@
 				for(i = 0; i < model.selected.length; i++)
 					selected.append("<option value='" + model.selected[i]["ISO"] + "'>" + model.selected[i]["Country"] + "</option>");
 
+				// country selection object
+				var countrySelect = new CountrySelect("selectedList", "autocomplete", "selectAll", "deselect", "deselectAll", model, function() {
+					updateViews(sel1.val(), sel2.val());
+				});
+
 			});
 
 		</script>
@@ -193,7 +199,9 @@
 					<form>
 	    					<select id="selectedList" size="3">
 	    					</select>
-	    					<input type="button" onclick="removeOption()" value="Deselect">
+						<input type="button" id="selectAll" value="Select All">
+	    					<input type="button" id="deselect" value="Deselect">
+						<input type="button" id="deselectAll" value="Deselect All">
 					</form>
 	   			</div><!-- End OutputBox-->
 

@@ -24,8 +24,7 @@
 		<script src="js/comparison.js"></script><!-- Comparison view -->
 		<script src="js/countryInfo.js"></script><!-- Country info box -->
   		<script src="js/jquery.autocomplete.min.js"></script>
-		<script src="js/countrySelect.js"></script>
-  		<!--<script src="js/countries.js"></script>-->
+  		<script src="js/countries.js"></script>
 		<script src="js/sampleD.js"></script>
 		<script src="js/model.js"></script>
         	<script src="js/results.js"></script>
@@ -46,7 +45,7 @@
 			var scatter = new Scatter("scatterplot", [model.headers[0], model.headers[1]], scatterdata);
 
 			// bar chart component (comparison view)
-			var comparisondata = model.getComparisonData(model.headers[0], model.headers[1], 10);
+			var comparisondata = model.getComparisonDataCompView(model.headers[0],  10);
 			var comparison = new Comparison("comparison", comparisondata);
 
 			function updateViews(prop1, prop2) {
@@ -61,6 +60,17 @@
 				
 				// update comparison view
 				comparisondata = model.getComparisonData(prop1, prop2, 10);
+				comparison.redraw(comparisondata);
+			}
+
+
+
+
+			function updateCompView(prop1) {
+				// update map
+				mapheadings = ["Country", prop1];				
+				mapdata = model.getMapDataCompView(prop1);				
+				comparisondata = model.getComparisonDataCompView(prop1, 10);
 				comparison.redraw(comparisondata);
 			}
 
@@ -83,21 +93,38 @@
 				var scatterplotview = $("#scatterplot");
 				var comparisonview = $("#comparison");
 
-				mapview.show(); scatterplotview.hide(); comparisonview.hide();
+
+
+
+				// criteria selection
+				var sel1 = $("#sel1");
+				var sel2 = $("#sel2");
+				var sel3 = $("#sel3");
+				$('#selVal1').html(sel1);
+				$('#selVal2').html(sel2);
+				$('#selVal3').html(sel3);
+				var criteria = $("#criteria");
+				var addCriteriaButton = $("#add criteria");
+				var removeCriteriaButton = $("#remove criteria"); 
+				var selectedCriteria = sel3.val();
+
+				var textfield = $("#searchfield"); 
+				var selCountries = $("#outputbox");
+
+				mapview.show(); scatterplotview.hide(); comparisonview.hide(); textfield.hide(); selCountries.hide(); sel3.hide(); criteria.hide();
+
 
 				var maptab = $("#maptab");
 				var scatterplottab = $("#scatterplottab");
 				var comparisontab = $("#comparisontab");
 
-				maptab.click(function() { mapview.show(); scatterplotview.hide(); comparisonview.hide(); });
-				scatterplottab.click(function() { mapview.hide(); scatterplotview.show(); comparisonview.hide(); });
-				comparisontab.click(function() { mapview.hide(); scatterplotview.hide(); comparisonview.show(); });
+				maptab.click(function() { mapview.show(); scatterplotview.hide(); comparisonview.hide(); textfield.hide(); selCountries.hide(); sel1.show(); sel2.show(); sel3.hide(); criteria.hide(); });
+				scatterplottab.click(function() { mapview.hide(); scatterplotview.show(); comparisonview.hide(); textfield.hide(); selCountries.hide(); sel1.show(); sel2.show(); sel3.hide(); criteria.hide(); });
+				comparisontab.click(function() { mapview.hide(); scatterplotview.hide(); comparisonview.show(); textfield.show(); selCountries.show(); sel1.hide(); sel2.hide(); sel3.show(); criteria.show(); });
 
-				// criteria selection
-				var sel1 = $("#sel1");
-				var sel2 = $("#sel2");
-				$('#selVal1').html(sel1);
-				$('#selVal2').html(sel2);
+
+
+
 
 				// create option tags
 				var option;
@@ -105,15 +132,22 @@
 					option = "<option value='" + model.headers[i] + "'>" + model.headers[i] + "</option>";
 					sel1.append(option);
 					sel2.append(option);
+					sel3.append(option);
 				}
-				$("#sel2 option:nth-child(2)").attr("selected", true);
 
 				sel1.change(function() {
 					updateViews(sel1.val(), sel2.val());
+
 				});
 				
 				sel2.change(function(evt) {
 					updateViews(sel1.val(), sel2.val());
+				});
+
+				sel3.change(function(evt) {
+					console.log("1111111111111111dddd");
+					alert(sel3.val());
+					updateCompView(sel3.val());
 				});
 
 				// autocomplete
@@ -124,16 +158,6 @@
 				autocomplete.onfocus = function() {
 					if(this.value=='Enter Country') this.value='';
 				};
-
-				// selected countries
-				var selected = $("#selectedList");
-				for(i = 0; i < model.selected.length; i++)
-					selected.append("<option value='" + model.selected[i]["ISO"] + "'>" + model.selected[i]["Country"] + "</option>");
-
-				// country selection object
-				var countrySelect = new CountrySelect("selectedList", "autocomplete", "deselect", "deselectAll", model, function() {
-					updateViews(sel1.val(), sel2.val());
-				});
 
 			});
 
@@ -167,6 +191,7 @@
 					<div id="resultsOutputText"></div><!-- Country Name, based on 'selectedList' ID-->
 					<div id="selVal1"></div>
 					<div id="selVal2"></div>
+					<div id="selVal3"></div>
 					<!-- This box will be repeated for every country selected -->
 				</div><!-- End ResultsOutput-->
 		
@@ -176,34 +201,70 @@
 					
 					<select id="sel2">
 					</select>
+					<select id="sel3">
+					</select>
+					<!--
+				 	<div id="bar1">
+						<script>
+							var test = Object.keys(fullDataSet[0]);
+							test.splice(0,2);
+							test.splice(2,1);
+							test.splice(8,2);
+							$(function() {
+							  var options = '';
+							  for (var i = 0; i < test.length; i++) {	
+							      options += '<option value="' + test[i] + '">' + test[i]+ '</option>';
+							  }
+							  $('#sel1').html(options);
+							});
+						</script>
+						<form> 
+							<select id="sel1"><script>rate1();</script></select>
+						</form>
+						<script>
+							$(function() {
+						 	 var options = '';
+							  for (var j = 0; j < test.length; j++) {
+						 	     options += '<option value="' + test[j] + '">' + test[j] + '</option>';
+						 	 }
+						  	$('#sel2').html(options);
+							});
+						</script>
+						<form> 
+							<select id="sel2"><script>rate2();</script></select>
+						</form>
+					</div><br>
+					-->
 				</div><!-- End SelectionBar -->
 			</div>
 
 			<div class="sixteen columns">
 
-				<div id="tabs" class="four columns">
-					<input type="button" id="maptab" value="Map" />
-					<input type="button" id="scatterplottab" value="ScatterPlot" />
-					<input type="button" id="comparisontab" value="Comparison" />
-				</div>
+			<div id="tabs" class="four columns">
+				<input type="button" id="maptab" value="Map" />
+				<input type="button" id="scatterplottab" value="ScatterPlot" />
+				<input type="button" id="comparisontab" value="Comparison" />
+			</div>
 
-				<div id="searchfield" class="four columns">
+			<div id="searchfield" class="four columns">
 
-					<form>
-						<input type="text" name="country" class="biginput" id="autocomplete" value="Enter Country" />
-					</form>
+				<form>
+					<input type="text" name="country" class="biginput" id="autocomplete" value="Enter Country" />
+				</form>
 	
-				</div><!-- End Searchfield -->   
-		    
-				<div id="outputbox" class="four columns">
-					<form>
-	    					<select id="selectedList" size="3">
-	    					</select>
-						<input type="button" id="selectAll" value="Select All">
-	    					<input type="button" id="deselect" value="Deselect">
-						<input type="button" id="deselectAll" value="Deselect All">
-					</form>
-	   			</div><!-- End OutputBox-->
+			</div><!-- End Searchfield -->   
+	    
+			<div id="outputbox" class="four columns">
+				<form>
+    			<select id="selectedList" size="3">
+    			</select>
+    			<input type="button" onclick="removeOption()" value="Deselect">
+		</form>
+   			</div><!-- End OutputBox-->
+			<div id="criteria">
+				<button type="button" id="add criteria" >Add criteria!</button>
+    				<button type="button" id="remove criteria" >Remove criteria!</button>
+			</div>
 
 			</div>
 
