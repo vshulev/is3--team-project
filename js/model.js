@@ -9,20 +9,20 @@ function Model(head, data) {
 	for(i = 0; i < data.length; i++)
 		this.selected.push(this.data[i]);
 	
-	this.getCounryInfo = function(cname) {
-		var result = lookup(cname, data);
+	this.getCounryInfo = function(iso) {
+		var result = lookup(iso, data);
 		if(result == -1) return null;
 		return data[result];
 	};
 	
-	this.addToSelected = function(cname) {
-		var res = lookup(cname, data);
+	this.addToSelected = function(iso) {
+		var res = lookup(iso, data);
 		if(res != -1)
 			selected.push(data[res]);
 	};
 	
-	this.removeFromSelected = function(cname) {
-		var res = lookup(cname, selected);
+	this.removeFromSelected = function(iso) {
+		var res = lookup(iso, selected);
 		if(res != -1)
 			selected.splice(res, 1);
 	};
@@ -74,19 +74,10 @@ function Model(head, data) {
 		return out;
 	};
 	
-	function lookup(cname, arr) {
-		var mid = Math.floor( arr.length / 2 );
-		var d1 = bsearch(0, mid, cname);
-		var d2 = bsearch(mid + 1, arr.length, cname);
-		return (d1 == -1) ? d2 : d1;
-	};
-	
-	function bsearch(start, end, val) {
-		if(start >= end) return -1; // value not found
-		var mid = Math.floor( (end - start) / 2 );
-		if(this.data[mid] == cname) return mid;
-		if(this.data[mid] > val) return bsearch(start, mid - 1);
-		return bsearch(mid + 1, end);
+	function lookup(iso, arr) {
+		for(i = 0; i < arr.length; i++)
+			if(arr[i]["iso"] == iso) return i;
+		return -1;
 	};
 
 }
