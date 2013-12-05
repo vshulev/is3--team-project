@@ -85,7 +85,7 @@ console.log("1");
 		row = new Array();
 		row.push(prop1 + " / " + prop2);
 		for(i = 0; i < maxCountries; i++) {
-			if(this.selected[i][prop1] == null || this.selected[i][prop2] == null || this.selected[i][prop2] == 0) row.push(0);
+			if(this.selected[i][prop1] == null || this.selected[i][prop2] == null || this.selected[i][prop1] == 0 || this.selected[i][prop2] == 0) { row.push(0); continue; }
 			row.push(this.selected[i][prop1] / this.selected[i][prop2]);
 		}
 		out.push(row);
