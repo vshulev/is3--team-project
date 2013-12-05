@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<!-- JavaScript files go here -->
+	<head>
+
+		<title>IS3 AX2</title>
+
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+		<!-- CSS -->
+		<!--<link rel="stylesheet" type="text/css" href="css/style.css" />-->
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/skeleton/base.css">
+		<link rel="stylesheet" href="css/skeleton/skeleton.css">
+		<link rel="stylesheet" href="css/skeleton/layout.css">
+
+		<!-- load all JavaScript objects -->
+		<script src="https://www.google.com/jsapi"></script> <!-- Google charts API -->
+		<script src="js/jquery-1.9.1.min.js"></script> <!-- jQuery -->
+		<script src="js/map.js"></script> <!-- Map view -->
+		<script src="js/scatter.js"></script><!-- Scatter view -->
+		<script src="js/comparison.js"></script><!-- Comparison view -->
+		<script src="js/countryInfo.js"></script><!-- Country info box -->
+  		<script src="js/jquery.autocomplete.min.js"></script>
+  		<script src="js/countries.js"></script>
+		<script src="js/sampleD.js"></script>
+		<script src="js/model.js"></script>
+        	<script src="js/results.js"></script>
+
+		<!-- render all components -->
+		<script>
+		
+			// model
+			var model = new Model(headers, fullDataSet);
+			var mapheadings = ["Country", model.headers[0] + " / " + model.headers[1]];
+
+			// map component
+			var mapdata = model.getMapData(model.headers[0], model.headers[1]);
+			var map = new Map("map", mapheadings, mapdata);
+
+			// scatterplot component
+			var scatterdata = model.getScatterplotData(model.headers[0], model.headers[1]);
+			var scatter = new Scatter("scatterplot", [model.headers[0], model.headers[1]], scatterdata);
+
+			// bar chart component (comparison view)
+			var comparisondata = model.getComparisonDataCompView(model.headers[0],  10);
+			var comparison = new Comparison("comparison", comparisondata);
+
+			function updateViews(prop1, prop2) {
+				// update map
+				mapheadings = ["Country", prop1 + " / " + prop2];
+				mapdata = model.getMapData(prop1, prop2);
+				map.redraw(mapheadings, mapdata);
+				
+				// update scatterplot view
+				scatterdata = model.getScatterplotData(prop1, prop2);
+				scatter.update([prop1, prop2], scatterdata);
+				
+				// update comparison view
+				comparisondata = model.getComparisonData(prop1, prop2, 10);
+				comparison.redraw(comparisondata);
+			}
+
+
+
+
+			function updateCompView(prop1) {
+				// update map
+				mapheadings = ["Country", prop1];				
+				mapdata = model.getMapDataCompView(prop1);				
+				comparisondata = model.getComparisonDataCompView(prop1, 10);
+				comparison.redraw(comparisondata);
+			}
+
+			// document has loaded
+			$(function() {
+				
+				// region selector
+				// TODO should be moved inside map object
+				$("#regionSelector input[type='button']").click(function(evt) {
+					// redraw map
+					map.drawRegion(evt.target.id);
+				});
+
+				// country info
+				var cInfo = new CountryInfo("countryInfo", model);
+				map.addListener(cInfo);
+
+				// tabs
+				var mapview = $("#mapContainer");
+				var scatterplotview = $("#scatterplot");
+				var comparisonview = $("#comparison");
+
+
+
+
+				// criteria selection
+				var sel1 = $("#sel1");
+				var sel2 = $("#sel2");
+				var sel3 = $("#sel3");
+				$('#selVal1').html(sel1);
+				$('#selVal2').html(sel2);
+				$('#selVal3').html(sel3);
+				var criteria = $("#criteria");
+				var addCriteriaButton = $("#add criteria");
+				var removeCriteriaButton = $("#remove criteria"); 
+				var selectedCriteria = sel3.val();
+
+				var textfield = $("#searchfield"); 
+				var selCountries = $("#outputbox");
+
+				mapview.show(); scatterplotview.hide(); comparisonview.hide(); textfield.hide(); selCountries.hide(); sel3.hide(); criteria.hide();
+
+
+				var maptab = $("#maptab");
+				var scatterplottab = $("#scatterplottab");
+				var comparisontab = $("#comparisontab");
+
+				maptab.click(function() { mapview.show(); scatterplotview.hide(); comparisonview.hide(); textfield.hide(); selCountries.hide(); sel1.show(); sel2.show(); sel3.hide(); criteria.hide(); });
+				scatterplottab.click(function() { mapview.hide(); scatterplotview.show(); comparisonview.hide(); textfield.hide(); selCountries.hide(); sel1.show(); sel2.show(); sel3.hide(); criteria.hide(); });
+				comparisontab.click(function() { mapview.hide(); scatterplotview.hide(); comparisonview.show(); textfield.show(); selCountries.show(); sel1.hide(); sel2.hide(); sel3.show(); criteria.show(); });
+
+
+
+
+
+				// create option tags
+				var option;
+				for(i = 0; i < model.headers.length; i++) {
+					option = "<option value='" + model.headers[i] + "'>" + model.headers[i] + "</option>";
+					sel1.append(option);
+					sel2.append(option);
+					sel3.append(option);
+				}
+
+				sel1.change(function() {
+					updateViews(sel1.val(), sel2.val());
+
+				});
+				
+				sel2.change(function(evt) {
+					updateViews(sel1.val(), sel2.val());
+				});
+
+				sel3.change(function(evt) {
+					console.log("1111111111111111dddd");
+					alert(sel3.val());
+					updateCompView(sel3.val());
+				});
+
+				// autocomplete
+				var autocomplete = document.getElementById("autocomplete");
+				autocomplete.onblur = function() {
+					if(this.value=='') this.value='Enter Country';
+				};
+				autocomplete.onfocus = function() {
+					if(this.value=='Enter Country') this.value='';
+				};
+
+			});
+
+		</script>
+	</head>
+
+	<!-- Document layout -->
+	<body>
+		<div id="wrapper" class="container">
+			
+			<div id="mapContainer" class="twelve columns">
+				<div id="regionSelector">
+					<input type="button" id="world" value="World" />
+					<input type="button" id="002" value="Africa" />
+					<input type="button" id="142" value="Asia" />
+					<input type="button" id="150" value="Europe" />
+					<input type="button" id="021" value="North America" />
+					<input type="button" id="005" value="South America" />
+					<input type="button" id="009" value="Oceania" />
+				</div>
+				<div id="map"></div>
+			</div>
+			<div id="scatterplot" class="twelve columns"></div>
+			<div id="comparison" class="twelve columns"></div>
+ 
+			<div class="four columns">
+				<div id="countryInfo">
+				</div>
+
+				<div id="resultsOutput">
+					<div id="resultsOutputText"></div><!-- Country Name, based on 'selectedList' ID-->
+					<div id="selVal1"></div>
+					<div id="selVal2"></div>
+					<div id="selVal3"></div>
+					<!-- This box will be repeated for every country selected -->
+				</div><!-- End ResultsOutput-->
+		
+				<div id="selectionBar">
+					<select id="sel1">
+					</select>
+					
+					<select id="sel2">
+					</select>
+					<select id="sel3">
+					</select>
+					<!--
+				 	<div id="bar1">
+						<script>
+							var test = Object.keys(fullDataSet[0]);
+							test.splice(0,2);
+							test.splice(2,1);
+							test.splice(8,2);
+							$(function() {
+							  var options = '';
+							  for (var i = 0; i < test.length; i++) {	
+							      options += '<option value="' + test[i] + '">' + test[i]+ '</option>';
+							  }
+							  $('#sel1').html(options);
+							});
+						</script>
+						<form> 
+							<select id="sel1"><script>rate1();</script></select>
+						</form>
+						<script>
+							$(function() {
+						 	 var options = '';
+							  for (var j = 0; j < test.length; j++) {
+						 	     options += '<option value="' + test[j] + '">' + test[j] + '</option>';
+						 	 }
+						  	$('#sel2').html(options);
+							});
+						</script>
+						<form> 
+							<select id="sel2"><script>rate2();</script></select>
+						</form>
+					</div><br>
+					-->
+				</div><!-- End SelectionBar -->
+			</div>
+
+			<div class="sixteen columns">
+
+			<div id="tabs" class="four columns">
+				<input type="button" id="maptab" value="Map" />
+				<input type="button" id="scatterplottab" value="ScatterPlot" />
+				<input type="button" id="comparisontab" value="Comparison" />
+			</div>
+
+			<div id="searchfield" class="four columns">
+
+				<form>
+					<input type="text" name="country" class="biginput" id="autocomplete" value="Enter Country" />
+				</form>
+	
+			</div><!-- End Searchfield -->   
+	    
+			<div id="outputbox" class="four columns">
+				<form>
+    			<select id="selectedList" size="3">
+    			</select>
+    			<input type="button" onclick="removeOption()" value="Deselect">
+		</form>
+   			</div><!-- End OutputBox-->
+			<div id="criteria">
+				<button type="button" id="add criteria" >Add criteria!</button>
+    				<button type="button" id="remove criteria" >Remove criteria!</button>
+			</div>
+
+			</div>
+
+		</div><!-- End Wrapper-->
+	</body>
+</html>

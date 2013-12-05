@@ -39,6 +39,17 @@ function Model(head, data) {
 		return out;
 	};
 	
+//EXTENSION -can be implemented in the upper function by checking for null
+	this.getMapDataCompView = function(prop1) {
+		var out2 = new Array();
+		for(i = 0; i < this.selected.length; i++) {
+			if(this.selected[i][prop1] == null) continue;
+			out2.push([ this.selected[i]["ISO"], this.selected[i][prop1]]/1);
+		}
+console.log("1");
+		return out2;
+	};
+//END OF EXTENSION
 	/*
 	 * Returns an array of data compatible with the scatterplot chart.
 	 */
@@ -74,6 +85,30 @@ function Model(head, data) {
 		return out;
 	};
 	
+
+	/*
+	 * Returns an array of data compatible with the bar chart.
+	 */
+	this.getComparisonDataCompView = function(prop1, maxCountries) {
+		maxCountries = (maxCountries < this.selected.length) ? maxCountries : this.selected.length;	
+		
+		var out = new Array();
+		var row = new Array();
+		row.push("x");
+		for(i = 0; i < maxCountries; i++) {
+			row.push(this.selected[i]["Country"]);
+		}
+		out.push(row);
+		row = new Array();
+		row.push(prop1 );
+		for(i = 0; i < maxCountries; i++) {
+			if(this.selected[i][prop1] == null ) row.push(0);
+			row.push(this.selected[i][prop1] / 1);
+		}
+		out.push(row);
+		console.log("2");
+		return out;
+	};
 	function lookup(cname, arr) {
 		var mid = Math.floor( arr.length / 2 );
 		var d1 = bsearch(0, mid, cname);
